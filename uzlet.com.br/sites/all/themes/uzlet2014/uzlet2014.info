@@ -1,0 +1,21 @@
+name = Uzlet
+description = Tema exclusivo para o site Uzlet
+package = Core
+core = 7.x
+
+regions[header] = Header
+regions[content] = Content
+regions[footer] = Footer
+
+stylesheets[all][] = admin.css
+stylesheets[all][] = geral.css
+stylesheets[all][] = max-767.css
+stylesheets[all][] = max-650.css
+stylesheets[all][] = max-460.css
+stylesheets[all][] = min-768.css
+
+scripts[] = jquery.maskedinput.js
+scripts[] = geral.js
+
+project = "drupal"
+datestamp = "1328134560"

@@ -1,0 +1,492 @@
+<?php
+
+/**
+ * @file
+ * Defines features and functions common to the
+ * Commerce Abandoned Cart Notification module.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function commerce_abandoned_cart_notification_menu() {
+  $items['commerce_abandoned_cart_notification/fetch/%commerce_order'] = array(
+    'title' => 'Fetch abandoned order',
+    'page callback' => 'commerce_abandoned_cart_notification_fetch_order',
+    'page arguments' => array(2),
+    'access callback' => TRUE,
+  );
+
+  return $items;
+}
+
+/**
+ * Menu callback; retrieve an abandoned cart.
+ */
+function commerce_abandoned_cart_notification_fetch_order($order) {
+  // If the user is logged in, forward her to the appropriate checkout page.
+  if (user_is_logged_in()) {
+    drupal_goto(commerce_checkout_order_uri($order));
+  }
+  else {
+    // If the given order is in the user's session, redirect to that order's
+    // checkout page.
+    if (!empty($_SESSION['commerce_cart_orders']) && in_array($order->order_id, $_SESSION['commerce_cart_orders'])) {
+      drupal_goto(commerce_checkout_order_uri($order));
+    }
+    // Otherwise, display a message indicating that her cookies have expired.
+    else {
+      drupal_set_message(t('It looks like your browser\'s cookies were cleared or you logged out since starting your order. Please <a href="@url">log in</a> or start a new order to continue.', array('@url' => url('user', array('query' => array('destination' => commerce_checkout_order_uri($order)))))));
+      // If possible, forward the user to the product display by which she found
+      // the product.
+      $line_item = commerce_abandoned_cart_notification_first_product_line_item($order);
+      if (!empty($line_item->data['context']['display_path'])) {
+        drupal_goto($line_item->data['context']['display_path']);
+      }
+      // Otherwise, just go to the cart page.
+      drupal_goto('cart');
+    }
+  }
+}
+
+/**
+ * Retrieve the first line item of an order that references a product.
+ */
+function commerce_abandoned_cart_notification_first_product_line_item($order) {
+  $ids = array_map('_commerce_abandoned_cart_notification_order_line_item_ids', $order->commerce_line_items[LANGUAGE_NONE]);
+  $line_items = commerce_line_item_load_multiple($ids);
+  foreach ($line_items as $line_item) {
+    if ($line_item->type == 'product') {
+      return $line_item;
+    }
+  }
+  return FALSE;
+}
+
+function _commerce_abandoned_cart_notification_order_line_item_ids($line_item) {
+  return $line_item['line_item_id'];
+}
+
+/**
+ * Implements hook_entity_info().
+ */
+function commerce_abandoned_cart_notification_entity_info() {
+  return array(
+    'commerce_abandoned_cart_notification_config' => array(
+      'label' => t('Abandoned cart notification configuration'),
+      'controller class' => 'CommerceAbandonedCartNotificationEntityAPIController',
+      'entity class' => 'Entity',
+      'base table' => 'commerce_abandoned_cart_notification_config',
+      'fieldable' => FALSE,
+      'label callback' => 'commerce_abandoned_cart_notification_config_label',
+      'entity keys' => array(
+        'id' => 'id',
+      ),
+      'access callback' => 'commerce_abandoned_cart_notification_admin_access',
+      'admin ui' => array(
+        'path' => 'admin/commerce/config/abandoned_cart_notification',
+        'controller class' => 'EntityDefaultUIController',
+      ),
+    ),
+  );
+}
+
+class CommerceAbandonedCartNotificationEntityAPIController extends EntityAPIController {
+
+  public function create(array $values = array()) {
+    // Set defaults
+    $values += array(
+      'delay' => 0,
+      'message_type' => '',
+      'active' => 1,
+      'data' => array('statuses' => array('cart')),
+    );
+    return parent::create($values);
+  }
+
+  public function load($ids = array(), $conditions = array()) {
+    $entities = parent::load($ids, $conditions);
+    foreach ($entities as $entity) {
+      if (empty($entity->data['statuses'])) {
+        $entity->data['statuses'] = array();
+      }
+    }
+    return $entities;
+  }
+
+}
+
+function commerce_abandoned_cart_notification_config_label($entity, $entity_type) {
+  if (!empty($entity->is_new)) {
+    return t('Abandoned order notification');
+  }
+
+  if ('commerce_abandoned_cart_notification_config' == $entity_type) {
+    $delay = _commerce_abandoned_cart_notification_delay_to_array($entity->delay);
+    $options = commerce_abandoned_cart_notification_config_form_units();
+    $message_types = message_type_load();
+    return t('Send "@message" to orders abandoned for @amount @units', array(
+      '@message' => $message_types[$entity->message_type]->description,
+      '@amount' => $delay['amount'],
+      '@units' => $options[$delay['units']],
+    ));
+  }
+}
+
+/**
+ * Determine access for administering abandoned cart notifications.
+ */
+function commerce_abandoned_cart_notification_admin_access($op, $entity = NULL, $account = NULL, $entity_type) {
+  if ('delete' == $op) {
+    if (commerce_abandoned_cart_notification_count($entity)) {
+      return FALSE;
+    }
+  }
+  return user_access('administer commerce abandoned cart notifications', $account);
+}
+
+/**
+ * Implements hook_entity_property_info_alter().
+ */
+function commerce_abandoned_cart_notification_entity_property_info_alter(&$info) {
+  $info['message']['properties']['order'] = array(
+    'label' => t('Order'),
+    'type' => 'commerce_order',
+    'setter callback' => 'entity_property_verbatim_set',
+    'computed' => TRUE,
+  );
+}
+
+/**
+ * Implements hook_entity_insert().
+ */
+function commerce_abandoned_cart_notification_entity_insert($entity, $type) {
+  if ($type == 'message' && !empty($entity->order->commerce_abandoned_cart_notification_config)) {
+    $record = array(
+      'order_id' => $entity->order->order_id,
+      'order_vid' => $entity->order->revision_id,
+      'mid' => $entity->mid,
+      'config' => $entity->order->commerce_abandoned_cart_notification_config,
+    );
+    drupal_write_record('commerce_abandoned_cart_notification', $record);
+  }
+}
+
+/**
+ * Implements hook_entity_load().
+ */
+function commerce_abandoned_cart_notification_entity_load($entities, $type) {
+  if ($type == 'message') {
+    // Get all the order IDs at once to minimize database queries.
+    $mids = array_map('_commerce_abandoned_cart_notification_mids', $entities);
+    $result = db_select('commerce_abandoned_cart_notification', 'cacn')
+      ->fields('cacn')
+      ->condition('mid', $mids)
+      ->execute()
+      ->fetchAll();
+
+    // Match the orders to their message entities.
+    foreach ($result as $row) {
+      foreach ($entities as $entity) {
+        // Set a default (NULL) value.
+        $entity->order = NULL;
+        if ($row->mid == $entity->mid) {
+          $entity->order = commerce_order_load($row->order_id);
+          $entity->order->commerce_abandoned_cart_notification_config = $row->config;
+          // Skip to the next $row.
+          break;
+        }
+      }
+    }
+  }
+}
+
+function _commerce_abandoned_cart_notification_mids($item) {
+  return $item->mid;
+}
+
+function _commerce_abandoned_cart_notification_order_ids($item) {
+  return $item->order_id;
+}
+
+/**
+ * Present a form for editing abandoned cart notification configs.
+ */
+function commerce_abandoned_cart_notification_config_form($form, &$form_state, $config, $op = 'edit') {
+  $delay = _commerce_abandoned_cart_notification_delay_to_array($config->delay);
+  $statuses = empty($config->data['statuses']) ? array() : $config->data['statuses'];
+  $form['delay'] = array('#tree' => TRUE);
+  $form['delay']['amount'] = array(
+    '#type' => 'textfield',
+    '#title' => t('After an order has been abandoned for...'),
+    '#default_value' => $delay['amount'],
+  );
+  $form['delay']['units'] = array(
+    '#type' => 'select',
+    '#options' => commerce_abandoned_cart_notification_config_form_units(),
+    '#default_value' => $delay['units'],
+  );
+
+  $form['message_type'] = array(
+    '#type' => 'select',
+    '#title' => t('...send the following message...'),
+    '#default_value' => $config->message_type,
+  );
+  foreach (message_type_load() as $name => $message_type) {
+    $form['message_type']['#options'][$name] = $message_type->description;
+  }
+
+  $form['data'] = array('#tree' => TRUE);
+  $form['data']['statuses'] = array(
+    '#type' => 'select',
+    '#title' => t('...to orders with the following statuses:'),
+    '#options' => commerce_order_status_options_list(),
+    '#multiple' => TRUE,
+    '#size' => 10,
+    '#default_value' => $statuses,
+  );
+
+  $form['active'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Active'),
+    '#default_value' => $config->active,
+  );
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Save'),
+  );
+
+  return $form;
+}
+
+/**
+ * Return an array of time units, fit for use for a <select>'s #options.
+ */
+function commerce_abandoned_cart_notification_config_form_units() {
+  return array(
+    1 => t('second(s)'),
+    60 => t('minute(s)'),
+    60 * 60 => t('hour(s)'),
+    60 * 60 * 24 => t('day(s)'),
+    60 * 60 * 24 * 7 => t('week(s)'),
+    60 * 60 * 24 * 30 => t('month(s)'),
+    60 * 60 * 24 * 365 => t('year(s)'),
+  );
+}
+
+function commerce_abandoned_cart_notification_config_form_validate($form, &$form_state) {
+  if (!is_numeric($form_state['values']['delay']['amount'])) {
+    form_set_error('delay_amount', t('Please enter a valid numeric value.'));
+  }
+
+  if (empty($form_state['values']['message_type'])) {
+    form_set_error('message_type', t('Please select a message to send.'));
+  }
+}
+
+function commerce_abandoned_cart_notification_config_form_submit($form, &$form_state) {
+  $form_state['values']['delay'] = _commerce_abandoned_cart_notification_array_to_delay($form_state['values']['delay']);
+  $config = entity_ui_form_submit_build_entity($form, $form_state);
+  $config->save();
+  $form_state['redirect'] = 'admin/commerce/config/abandoned_cart_notification';
+}
+
+/**
+ * Utility function; get the config delay as an amount/units pair.
+ *
+ * @param $delay
+ *   A number of seconds.
+ */
+function _commerce_abandoned_cart_notification_delay_to_array($delay) {
+  $array = array(
+    'amount' => 0,
+    'units' => 1,
+  );
+  if ($delay) {
+    $units = array_keys(commerce_abandoned_cart_notification_config_form_units());
+    while ($array['units'] = array_pop($units)) {
+      if (!($delay % $array['units'])) {
+        break;
+      }
+    }
+    $array['amount'] = $delay / $array['units'];
+  }
+
+  return $array;
+}
+
+/**
+ * And do the reverse.
+ *
+ * @param $array
+ *   An array as output by
+ *   _commerce_abandoned_cart_notification_delay_to_array().
+ */
+function _commerce_abandoned_cart_notification_array_to_delay($array) {
+  return $array['amount'] * $array['units'];
+}
+
+/**
+ * Count how many notifications based on a given config have been sent.
+ *
+ * @return
+ *   The number of notifications sent.
+ */
+function commerce_abandoned_cart_notification_count($config) {
+  $query = db_select('commerce_abandoned_cart_notification', 'cacn')
+    ->condition('config', $config->id);
+  $query->addExpression('COUNT(mid)');
+  return $query->execute()->fetchField();
+}
+
+/**
+ * Implements hook_cron().
+ */
+function commerce_abandoned_cart_notification_cron() {
+  // Find all active notification configs.
+  $query = db_select('commerce_abandoned_cart_notification_config', 'cacnc')
+    ->fields('cacnc')
+    ->condition('active', 1)
+    ->orderBy('delay', 'DESC')
+    ->execute();
+
+  // Set up a cron queue to handle Message Notify functionality. This is
+  // especially necessary for when a new abandoned cart notification config is
+  // created, since, as a result, all abandoned orders in the history of this
+  // Drupal instance will have a new message sent to them.
+  $queue = DrupalQueue::get('commerce_abandoned_cart_notification');
+
+  foreach ($query->fetchAll() as $config) {
+    $config->data = unserialize($config->data);
+    // Iterate over the orders, creating queue items for them.
+    foreach (commerce_abandoned_cart_notification_config_orders($config) as $order_id) {
+      // Queue up this message to be sent.
+      $queue_item = array(
+        'config' => $config,
+        'order_id' => $order_id,
+      );
+      $queue->createItem($queue_item);
+    }
+  }
+}
+
+/**
+ * Implements hook_cron_queue_info().
+ */
+function commerce_abandoned_cart_notification_cron_queue_info() {
+  return array(
+    'commerce_abandoned_cart_notification' => array(
+      'worker callback' => 'commerce_abandoned_cart_notification_send',
+    ),
+  );
+}
+
+function commerce_abandoned_cart_notification_send($notification) {
+  $config = $notification['config'];
+  $order_id = $notification['order_id'];
+
+  // Double-check that this message is still eligible for a notification, in
+  // case cron ran multiple times before this order's notification was sent and
+  // thus queued up multiple notifications for the same order.
+  $order_eligible = commerce_abandoned_cart_notification_config_orders($config, $order_id);
+  if (empty($order_eligible)) {
+    return;
+  }
+
+  // Create the message.
+  $order = commerce_order_load($order_id);
+  $message = message_create($config->message_type, array('uid' => $order->uid));
+  $message->order = $order;
+  $message->order->commerce_abandoned_cart_notification_config = $config->id;
+  message_save($message);
+
+  // Send.
+  message_notify_send_message($message, array('mail' => $order->mail));
+}
+
+/**
+ * Get all orders eligible for a given notification config.
+ *
+ * @param $config
+ *   The abandoned cart notification config entity for which orders should be
+ *   retrieved.
+ * @param $order_id
+ *   If wanting to check for whether a single order has already had this
+ *   notification sent, pass in that order's ID.
+ *
+ *   @see commerce_abandoned_cart_notification_send()
+ *
+ * @return
+ *   An array of order IDs.
+ */
+function commerce_abandoned_cart_notification_config_orders($config, $order_id = NULL) {
+  // If there are no statuses chosen for this configuration, return an empty
+  // array (since by definition, there aren't any eligible orders).
+  if (empty($config->data['statuses'])) {
+    return array();
+  }
+
+  $args = array(
+    ':empty' => '',
+    ':delay' => $config->delay,
+    ':statuses' => $config->data['statuses'],
+    ':product' => 'product',
+  );
+
+  // Prep the WHERE clause and the args if an order ID was passed in.
+  $where_order_id = '';
+  if (!is_null($order_id)) {
+    $where_order_id = 'AND co.order_id = :order_id';
+    $args[':order_id'] = $order_id;
+  }
+
+  $query = db_query('
+    SELECT
+      co.order_id
+    FROM
+      {commerce_order} co
+      # Via a subquery, generate (and LEFT JOIN to) an ad-hoc table of all
+      # orders whose notifications have been sent. Grab the maximum delay
+      # field from the configuration table as well, so we know which was the
+      # most recent notification sent.
+      LEFT JOIN (
+        SELECT
+          MAX(cacnc.delay) AS delay,
+          cacn.order_id
+        FROM
+          {commerce_abandoned_cart_notification_config} cacnc
+          JOIN {commerce_abandoned_cart_notification} cacn
+            ON cacn.config = cacnc.id
+        GROUP BY cacn.order_id
+      ) cacnc
+        ON cacnc.order_id = co.order_id
+      JOIN {commerce_line_item} cli
+        ON cli.order_id = co.order_id
+    WHERE
+      # The order must be at least as old as the delay
+      co.changed <= UNIX_TIMESTAMP() - :delay
+      AND co.mail != :empty
+      AND (
+        # Either the delay of the last notification sent must be smaller than
+        # the delay of the current notification...
+        cacnc.delay < :delay
+        # ...or no notifications must have been sent yet.
+        OR cacnc.delay IS NULL
+      )
+      # Only return orders with the chosen statuses.
+      AND co.status IN (:statuses)
+      # Only return orders with product line items.
+      AND cli.type = :product
+      ' . $where_order_id . '
+    # Since one order can have multiple product line items, group by order ID.
+    GROUP BY co.order_id
+  ', $args);
+
+  // For efficiency, load all the orders at once, rather than one at a time.
+  $order_ids = array();
+  foreach ($query->fetchAll() as $order) {
+    $order_ids[] = $order->order_id;
+  }
+  return $order_ids;
+}

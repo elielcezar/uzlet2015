@@ -1,0 +1,365 @@
+<?php
+
+/**
+ * @file
+ * Provides a shipping method for Drupal Commerce for Brazilian Correios.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function commerce_correios_menu() {
+  $items = array();
+
+  $items['admin/commerce/config/shipping/methods/correios/edit'] = array(
+    'title' => 'Edit',
+    'description' => 'Configure the Brazilian Correios shipping method.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('commerce_correios_settings_form'),
+    'access arguments' => array('administer shipping'),
+    'file' => 'commerce_correios.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'context' => MENU_CONTEXT_INLINE,
+    'weight' => 0,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_commerce_shipping_method_info().
+ */
+function commerce_correios_commerce_shipping_method_info() {
+  $shipping_methods = array();
+
+  $shipping_methods['correios'] = array(
+    'title' => t('Correios'),
+    'description' => t('Quote rates from Brazilian Correios'),
+  );
+
+  return $shipping_methods;
+}
+
+/**
+ * Implements hook_commerce_shipping_service_info().
+ */
+function commerce_correios_commerce_shipping_service_info() {
+  $available_services = _commerce_correios_services_types();
+  $selected_services = array_filter(variable_get('commerce_correios_services', array()));
+  $shipping_services = array();
+
+  foreach ($selected_services as $id => $value) {
+    $service = $available_services[$id];
+    $shipping_services[$service['slug']] = array(
+      'title' => $service['title'],
+      'description' => $service['description'],
+      'display_title' => $service['display_title'],
+      'shipping_method' => 'correios',
+      'price_component' => 'shipping',
+      'callbacks' => array(
+        'rate' => 'commerce_correios_rate',
+      )
+    );
+  }
+
+  return $shipping_services;
+}
+
+/**
+ * Shipping service callback. Returns a base price array for a shipping service
+ * calculated for the given order.
+ */
+function commerce_correios_rate($shipping_service, $order) {
+
+  /**
+   * This is a control created to see if it needs to send an error message to
+   * the user in case of anyone option became available to the user
+   */
+  global $shipping_services_status;
+  if (!isset($shipping_services_status)) {
+    $service_types_available = array_filter(variable_get('commerce_correios_services', array()));
+    $shipping_services_status = array(
+      'total_amount_of_services' => (int) count($service_types_available),
+      'tested' => 1
+    );
+    $shipping_services_status['errors'] = array();
+  }
+  else {
+    $shipping_services_status['tested']++;
+  }
+
+  // Load the shipping profile data that was filled in the previous step.
+  $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+
+  // Strip non numeric characters from postal code.
+  $postal_code = preg_replace('/\D/', '', $order_wrapper->commerce_customer_shipping->commerce_customer_address->postal_code->value());
+
+  // Get approximate package size for order shipment.
+  $package = commerce_correios_package($order);
+
+  $params = array(
+    'nCdServico' => _commerce_correios_shipping_service_code($shipping_service['name']),
+    'sCepOrigem' => variable_get('commerce_correios_store_postal_code'),
+    'sCepDestino' => $postal_code,
+    'nVlPeso' => $package['weight'],
+    'nVlLargura' => $package['width'],
+    'nVlAltura' => $package['height'],
+    'nVlComprimento' => $package['length'],
+  );
+
+  $rate = commerce_correios_call($params);
+
+  if ((int) $rate->Erro == 0) {
+    $result = array(
+      'amount' => commerce_currency_decimal_to_amount(str_replace(',', '.', (string) $rate->Valor), 'BRL'),
+      'currency_code' => 'BRL',
+      'data' => array(),
+    );
+    return $result;
+  }
+  else {
+    // Organizing the error messages
+    $shipping_services_status['errors'][$shipping_service['name']] = array(
+      'error' => (string) $rate->MsgErro,
+      'shipping_service_name' => $shipping_service['display_title']
+    );
+
+    // Assure that we tested every shipping service available
+    if ($shipping_services_status['tested'] == $shipping_services_status['total_amount_of_services']) {
+
+      $amount_of_errors = count($shipping_services_status['errors']);
+
+      $service_available = ($amount_of_errors < $shipping_services_status['total_amount_of_services']) ? TRUE : FALSE;
+
+      // If we have at least 1 service available, don not show error message
+      // and let the user keep going
+      if (!$service_available) {
+        foreach ($shipping_services_status['errors'] as $error) {
+          $msg = t('Shipping method @method gave the following error: @error', array(
+            '@method' => $error['shipping_service_name'],
+            '@error' => $error['error']
+              ));
+          drupal_set_message($msg, 'error');
+        }
+        $rate = NULL;
+        drupal_goto('checkout/' . $order->order_number);
+      }
+    }
+  }
+}
+
+/**
+ * Get standardized package dimensions. Use Commerce Physical data if available.
+ */
+function commerce_correios_package($order) {
+  $weight = NULL;
+  $volume = NULL;
+
+  // Uses Commerce Physical module properties to calculate dimensions when
+  // available.
+  if (module_exists('commerce_physical')) {
+    $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+
+    // Determine the shipping profile reference field name for the order.
+    $field_name = commerce_physical_order_shipping_field_name($order);
+    $shipping_profile = $order_wrapper->{$field_name}->value();
+
+    // This returns $weight['unit'] and $weight['weight'].
+    $weight = commerce_physical_order_weight($order, 'kg');
+    $weight = empty($weight) ? NULL : $weight['weight'];
+
+    // This returns $volume['unit'] and $volume['volume'].
+    $volume = commerce_physical_order_volume($order, 'cm');
+    $volume = empty($volume) ? NULL : $volume['volume'];
+  }
+
+  if (empty($weight)) {
+    // If Commerce Physical is not available, or it doesn't return a weight, use
+    // default weight.
+    $weight = variable_get('commerce_correios_default_weight', 1);
+  }
+
+  if (empty($volume)) {
+    // If Commerce Physical is not available, or it doesn't return a volume, use
+    // default dimensions.
+    $width = variable_get('commerce_correios_default_width', 11);
+    $height = variable_get('commerce_correios_default_height', 2);
+    $length = variable_get('commerce_correios_default_length', 16);
+  }
+  else {
+    // Otherwise, do a cubic root for getting approximate package dimensions
+    // from volume. Values are then limited to Correios min/max dimensions.
+    // @todo Integrate with Packaging API for more accurate packages calculation
+    // and support for multiple shipping packages for the same order.
+    $dimension = pow($volume, 1 / 3);
+    list($width, $height, $length) = array($dimension, $dimension, $dimension);
+  }
+
+  $constraints = commerce_correios_packages_constraints();
+
+  return array(
+    // Round weight with two decimals.
+    'weight' => round(min(max($weight, $constraints['weight']['min']), $constraints['weight']['max']), 2),
+    // Round dimensions to integer.
+    'width' => round(min(max($width, $constraints['width']['min']), $constraints['width']['max'])),
+    'height' => round(min(max($height, $constraints['height']['min']), $constraints['height']['max'])),
+    'length' => round(min(max($length, $constraints['length']['min']), $constraints['length']['max'])),
+  );
+}
+
+/**
+ * Call Correios shipping calculation webservice.
+ *
+ * @param $params
+ *   Array with params to pass to Correio Webservice.
+ */
+function commerce_correios_call($params) {
+  // Add some required and hardcoded values to the params array.
+  $params += array(
+    'nCdEmpresa' => '',
+    'sDsSenha' => '',
+    'nCdFormato' => 1,
+    'sCdMaoPropria' => 'N',
+    'nVlValorDeclarado' => 0,
+    'sCdAvisoRecebimento' => 'N',
+    'nVlDiametro' => 0,
+    'StrRetorno' => 'xml',
+  );
+
+  $url = url('http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx', array('query' => $params));
+
+  if ($xml = simplexml_load_file($url)) {
+    return $xml->cServico;
+  }
+  else {
+    watchdog('commerce_correios', t('There was an unknown error calculating the shipping cost. URL: %url')
+        , array('%url' => $url), WATCHDOG_ERROR);
+  }
+
+  return FALSE;
+}
+
+/**
+ * Helper function to get Brazilian Correios services types codes and info.
+ */
+function _commerce_correios_services_types() {
+  $services = array(
+    '40010' => array(
+      'title' => 'SEDEX sem contrato',
+      'display_title' => 'SEDEX',
+      'description' => 'Serviço de remessa expressa de mercadorias, para remetentes que não tenham contrato com os Correios (o valor é igual ao praticado no balcão da agência).'
+    ),
+    '40045' => array(
+      'title' => 'SEDEX a Cobrar, sem contrato',
+      'display_title' => 'SEDEX a cobrar',
+      'description' => 'Serviço de remessa expressa para envio de mercadorias, no qual o remetente paga os preços postais no momento da postagem e estipula o valor a ser cobrado do destinatário, para remetentes que não tenham contrato com os Correios (o valor é igual ao praticado no balcão da agência).'
+    ),
+//    '40126' => array(
+//      'title' => 'SEDEX a Cobrar, com contrato',
+//      'display_title' => 'SEDEX a cobrar',
+//      'description' => 'Serviço de remessa expressa para envio de mercadorias, no qual o remetente paga os preços postais no momento da postagem e estipula o valor a ser cobrado do destinatário, para remetentes que possuam contrato com os Correios.'
+//    ),
+    '40215' => array(
+      'title' => 'SEDEX 10',
+      'display_title' => 'SEDEX 10',
+      'description' => 'Serviço de remessa expressa de mercadorias com entrega garantida até às 10hs da manhã do dia útil seguinte ao da postagem.'
+    ),
+    '40290' => array(
+      'title' => 'SEDEX Hoje, sem contrato',
+      'display_title' => 'SEDEX Hoje',
+      'description' => 'Serviço de remessa expressa de mercadorias com entrega garantida no mesmo dia da postagem, para remetentes que não tenham contrato com os Correios (o valor é igual ao praticado no balcão da agência).'
+    ),
+//    '40096' => array(
+//      'title' => 'SEDEX com contrato (40096)',
+//      'description' => 'Serviço de remessa expressa de mercadorias, para remetentes que possuam contrato com os Correios.'
+//    ),
+//    '40436' => array(
+//      'title' => 'SEDEX com contrato (40436)',
+//      'description' => 'Serviço de remessa expressa de mercadorias, para remetentes que possuam contrato com os Correios.'
+//    ),
+//    '40444' => array(
+//      'title' => 'SEDEX com contrato (40444)',
+//      'description' => 'Serviço de remessa expressa de mercadorias, para remetentes que possuam contrato com os Correios.'
+//    ),
+//    '40568' => array(
+//      'title' => 'SEDEX com contrato (40568)',
+//      'description' => 'Serviço de remessa expressa de mercadorias, para remetentes que possuam contrato com os Correios.'
+//    ),
+//    '40606' => array(
+//      'title' => 'SEDEX com contrato (40606)',
+//      'description' => 'Serviço de remessa expressa de mercadorias, para remetentes que possuam contrato com os Correios.'
+//    ),
+      '41106' => array(
+        'title' => 'PAC sem contrato',
+        'display_title' => 'PAC',
+        'description' => 'Serviço de remessa econômica de mercadorias com entrega domiciliar, para remetentes que não tenham contrato com os Correios (o valor é igual ao praticado no balcão da agência).'
+      ),
+//    '41068' => array(
+//      'title' => 'PAC com contrato',
+//      'description' => 'Serviço de remessa econômica de mercadorias com entrega domiciliar, para remetentes que possuam contrato com os Correios.'
+//    ),
+//    '81019' => array(
+//      'title' => 'e-SEDEX, com contrato',
+//    ),
+//    '81027' => array(
+//      'title' => 'e-SEDEX Prioritário, com conrato',
+//    ),
+//    '81035' => array(
+//      'title' => 'e-SEDEX Express, com contrato',
+//    ),
+//    '81868' => array(
+//      'title' => '(Grupo 1) e-SEDEX, com contrato',
+//    ),
+//    '81833' => array(
+//      'title' => '(Grupo 2) e-SEDEX, com contrato',
+//    ),
+//    '81850' => array(
+//      'title' => '(Grupo 3) e-SEDEX, com contrato',
+//    ),
+  );
+
+  /* Make a unique ID to identify the service by */
+  foreach ($services as $key => $service) {
+    $service['slug'] = strtolower(preg_replace('/[^a-zA-Z0-9-]+/', '-', $service['title']));
+    $services[$key] = $service;
+  }
+  return $services;
+}
+
+function _commerce_correios_shipping_service_code($service_slug) {
+  $service_names = _commerce_correios_services_types();
+  foreach ($service_names as $code => $service) {
+    if ($service['slug'] == $service_slug) {
+      return $code;
+    }
+  }
+  return FALSE;
+}
+
+/**
+ * Helper function to get Brazilian Correios min/max package dimensions.
+ */
+function commerce_correios_packages_constraints() {
+  return array(
+    // Weight ranges from 300 grams to 30 kilos.
+    'weight' => array(
+      'min' => 0.3,
+      'max' => 30,
+    ),
+    // Width ranges from 11 centimeters to 105 centimeters.
+    'width' => array(
+      'min' => 11,
+      'max' => 105,
+    ),
+    // Height ranges from 2 centimeters to 105 centimeters.
+    'height' => array(
+      'min' => 2,
+      'max' => 105,
+    ),
+    // Length ranges from 16 centimeters to 105 centimeters.
+    'length' => array(
+      'min' => 16,
+      'max' => 105,
+    ),
+  );
+}

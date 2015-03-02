@@ -1,0 +1,81 @@
+<?php
+
+/**
+ * @file
+ * Installs the tables required by PagSeguro.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function pagseguro_schema() {
+  $schema = array();
+
+  $schema['pagseguro_notification'] = array(
+    'description' => 'Stores processed Notifications.',
+    'fields' => array(
+      'pagseguro_nid' => array(
+        'description' => 'Serial numeric ID of notification in database',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'notification_code' => array(
+        'description' => 'PagSeguro notification ID.',
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'valor' => array(
+        'description' => 'The gross payment amount.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'status_pagamento' => array(
+        'description' => 'PagSeguro payment status.',
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'email_consumidor' => array(
+        'description' => 'The e-mail of the payer.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'order_id' => array(
+        'description' => 'The order ID the payment belongs to. (REFERENCE)',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'created' => array(
+        'description' => 'The Unix timestamp when the NASP was received.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'changed' => array(
+        'description' => 'The Unix timestamp when the NASP was last updated.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),    
+    ),
+    'primary key' => array('pagseguro_nid'),
+    'foreign keys' => array(
+      'order_id' => array(
+        'table' => 'commerce_order',
+        'columns'=> array('order_id' => 'order_id'),
+      ),
+    ),
+  );
+
+  return $schema;
+}

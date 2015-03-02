@@ -1,0 +1,8 @@
+<?php
+
+/**
+ * @file
+ * Enable some dashboard pages to consume data directly from PagSeguro
+ *
+ * @see http://www.pagseguro.com.br/
+ */

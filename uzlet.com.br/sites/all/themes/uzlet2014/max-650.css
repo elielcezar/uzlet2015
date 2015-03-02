@@ -1,0 +1,43 @@
+@media (max-width: 650px){
+
+	/* HOME */
+	.menu-iphone ul li,
+	.menu-smartphone ul li{
+		width: 100% !important;
+		margin-bottom: 25px;		
+	}
+
+	/* destaque */
+	.front #destaque .chamada h3{
+		width: 60%;
+		font-size: 32px;
+	}
+
+	/* CHECKOUT */
+	.page-checkout .commerce-checkout-progress{
+		width: 100%;
+	}
+	.page-checkout .commerce-checkout-progress li{
+		width: 90% !important;
+		margin-bottom: 10px;
+	}
+	.page-checkout form label{
+		width: 100% !important;
+		text-align: left !important;
+	}
+
+	.page-checkout .form-textarea-wrapper{width: 100% !important;}
+
+	.page-checkout input.form-text,
+	.page-checkout textarea.form-textarea{		
+		padding: 2% 1%;
+		width: 97% !important;		
+	}
+	.page-checkout .description{		
+		float: left;
+		margin-left: 0 !important;	
+	}
+
+
+}
+

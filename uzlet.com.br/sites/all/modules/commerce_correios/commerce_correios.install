@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * @file
+ * Handles installation for Commerce Correios module.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function commerce_correios_uninstall() {
+  $variables = array(
+    'commerce_correios_store_postal_code',
+    'commerce_correios_services',
+    'commerce_correios_default_weight',
+    'commerce_correios_default_height',
+    'commerce_correios_default_length',
+  );
+
+  foreach ($variables as $variable) {
+    variable_del($variable);
+  }
+}

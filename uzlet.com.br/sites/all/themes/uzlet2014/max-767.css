@@ -1,0 +1,136 @@
+@media (max-width: 767px){
+	/*--- TOPO --------------------------------------------------------*/
+	header h1 a{		
+		width: 100%;
+		margin-top: 25px;		
+	}
+	/* perfil topo */	
+	header #block-views-perfil-topo-block-1{
+		position: relative;		
+		width: 100% !important;
+		position: absolute;
+		top: 0;
+		text-align: center;
+		
+	}
+		header #block-views-perfil-topo-block-1 *{display: inline;}
+	/* menu */
+	header .navbar .navbar-collapse{
+		overflow: hidden !important; 		
+		width: 100%;
+		text-align: center;
+	}	
+	header .navbar .menu-principal{	
+		float: left;		
+		width: 100%;
+		margin-top: 0;		
+	}
+	/* menu admin */
+	header #block-menu-menu-admin-menu ul{display: none;}
+	/* cesta */
+	header .navbar #block-commerce-cart-cart{
+		float: left;
+		border: 1px solid #ccc;
+		width: 100%;
+		position: relative;
+		margin: 0;
+		display: block;
+	}
+	header .navbar #block-commerce-cart-cart .cart-contents,
+	header .navbar #block-commerce-cart-cart .cart-empty-block{		
+		position: relative;
+		margin: auto;		
+	}
+		header .navbar #block-commerce-cart-cart .cart-empty-block{text-align: center;}
+	/* destaque */
+	.front #destaque .chamada h3{width: 360px !important;}	
+	.front #destaque .chamada .saiba-mais{
+		width: 360px;
+		margin-top: 20px;
+		font-size: 18px;
+	}
+	/*--- HOME ---*/
+	.front a.carousel-control{display: none !important;}
+	.venda-iphone,
+	.venda-smartphone{margin-bottom: 25px;}	
+	
+	/* ---PAGINA DE CADA PRODUTO ---*/	
+	/* descricao dos estados do aparelho */
+	.node-type-iphone .form-item-attributes-field-estado .form-type-radio,
+	.node-type-smartphone .form-item-attributes-field-estado .form-type-radio{
+		width: 100%;
+		float: left;
+		margin-bottom: 25px;
+	}
+	/* operadora */
+	.form-item-line-item-fields-field-operadora-und {text-align: center;}
+	.form-item-line-item-fields-field-operadora-und .form-item{	width: 100%;}
+	/*bloqueado */
+	.form-item-attributes-field-bloqueado{text-align: center;}
+	/*--- LOGIN ---*/	
+	.page-user-login #login-link,
+	.page-user-login #register-link,
+	.page-user-register #login-link,
+	.page-user-register #register-link,
+	.page-user #login-link,
+	.page-user #register-link{
+		width: 90%;
+		margin: auto;
+		background: #e7511e !important;
+		color: #fff;	
+		display: block;		
+		margin-bottom: 25px;
+		border: none !important;
+		font-family: 'Nexa Regular', sans-serif;
+		height: 50px;
+		letter-spacing: -1px;
+		padding: 0 !important;
+	}
+	.page-user-login form label,
+	.page-user-register form label,
+	.page-user form label{width: 100%;}
+	.page-user-login input.form-text,
+	.page-user-register input.form-text,
+	.page-user input.form-text{		
+		padding: 2% 1%;
+		width: 97%;		
+	}
+	.page-user-login input.password-field,
+	.page-user-login input.password-confirm,
+	.page-user-register input.password-field,
+	.page-user-register input.password-confirm,
+	.page-user input.password-field,
+	.page-user input.password-confirm{width: 50%;}
+	#edit-account{overflow: hidden;	}
+	
+	/* CHECKOUT */	
+	.page-checkout .form-textarea-wrapper{width: 70%;}
+	.page-checkout textarea.form-textarea{		
+		padding: 2% 1%;
+		width: 97% !important;				
+	}
+	/*****************************************************************/
+	
+	/*--- LOGIN ---*/
+	.page-user-login #login-message,
+	.page-user-register #login-message,
+	.page-user #login-message{display: none;}	
+	.page-user-login #login-link,
+	.page-user-login #register-link,
+	.page-user-register #login-link,
+	.page-user-register #register-link,
+	.page-user #login-link,
+	.page-user #register-link{
+		width: 90%;
+		margin: auto;
+		background: #e7511e !important;
+		color: #fff;	
+		display: block;		
+		margin-bottom: 25px;
+		border: none !important;
+		font-family: 'Nexa Regular', sans-serif;
+		height: 50px;
+		letter-spacing: -1px;
+		padding: 0 !important;
+	}
+}

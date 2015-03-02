@@ -1,0 +1,50 @@
+<?php
+
+/**
+ * @file
+ * Integrates Drupal with PagSeguro, a Brazilian payment provider.
+ *
+ * @see http://www.pagseguro.com.br/
+ */
+define('PAGSEGURO_STATUS_INITIATED', 0);
+define('PAGSEGURO_STATUS_AWAITING', 1);
+define('PAGSEGURO_STATUS_IN_ANALYSIS', 2);
+define('PAGSEGURO_STATUS_PAID', 3);
+define('PAGSEGURO_STATUS_AVAILABLE', 4);
+define('PAGSEGURO_STATUS_DISPUTED', 5);
+define('PAGSEGURO_STATUS_REFUNDED', 6);
+define('PAGSEGURO_STATUS_CANCELED', 7);
+define('PAGSEGURO_MINIMAL_VALID_VERSION', '2.2.3');
+
+/**
+ * Implements hook_permission()
+ */
+function pagseguro_permission() {
+  return array(
+    'administer pagseguro' => array(
+      'title' => t('Administer PagSeguro integration settings'),
+    ),
+  );
+}
+
+function pagseguro_commerce_payment_method_info() {
+  $payment_methods = array();
+  $payment_methods['pagseguro_payment'] = array(
+    'base' => 'pagseguro_api',
+    'title' => t('PagSeguro API Integration'),
+    'display_title' => variable_get('pagseguro_display_title', 'PagSeguro'),
+    'short_title' => 'PagSeguro',
+    'description' => t('PagSeguro API Integration'),
+    'terminal' => FALSE,
+    'offsite' => TRUE,
+    'active' => TRUE
+  );
+  return $payment_methods;
+}
+
+/**
+ * This hook is called by "payment_method" for being a "offsite" payment
+ */
+function pagseguro_api_redirect_form($form, &$form_state, $order, $payment_method) {
+  \Drupal\pagseguro\Commerce\PaymentRedirectController::processData($form, $form_state, $order, $payment_method);
+}

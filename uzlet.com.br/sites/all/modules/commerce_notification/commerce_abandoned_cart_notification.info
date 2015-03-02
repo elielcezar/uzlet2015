@@ -1,0 +1,19 @@
+name = Abandoned Cart Notification
+description = Send notifications to your customers who have forgotten about their order.
+package = Commerce (contrib)
+configure = admin/commerce/config/abandoned_cart_notification
+dependencies[] = commerce
+dependencies[] = commerce_cart
+dependencies[] = commerce_line_item
+dependencies[] = commerce_order
+dependencies[] = message
+dependencies[] = message_notify
+
+core = 7.x
+
+; Information added by Drupal.org packaging script on 2014-03-24
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "commerce_notification"
+datestamp = "1395678259"
+

@@ -1,0 +1,14 @@
+name = PagSeguro Dashboard
+description = Provides some useful information about the configured PagSeguro account
+package = Commerce (contrib)
+core = 7.x
+php = 5.3
+
+dependencies[] = pagseguro
+
+; Information added by Drupal.org packaging script on 2014-08-01
+version = "7.x-1.0-alpha2"
+core = "7.x"
+project = "pagseguro"
+datestamp = "1406897029"
+

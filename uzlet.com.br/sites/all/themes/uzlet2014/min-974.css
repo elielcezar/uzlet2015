@@ -1,0 +1,15 @@
+@media (min-width: 974px){
+
+
+
+	/*--- HOME ---*/
+	
+	/* destaque */
+	.front #destaque .chamada .saiba-mais{
+		width: 60%;
+		margin-top: 20px;
+	}
+	
+
+
+}

@@ -1,0 +1,31 @@
+@media (min-width: 768px){
+
+
+	/* LOGIN */
+	.page-user #login-form,
+	.page-user #register-form{			
+		display: block !important;		
+	}
+		/*.page-user #register-form{float: left;}
+		.page-user #login-form{float: right;}*/
+	
+	.toboggan-unified #login-message,
+	.toboggan-unified #login-links{
+		display: none;
+	}
+	.toboggan-unified .description{display: none;}
+	.toboggan-unified{position: relative;}
+	.toboggan-unified label{
+		width: 200px;
+		text-align: right;
+	}
+	.toboggan-unified input.form-text{width: 200px;}
+	
+	.toboggan-unified div.password-confirm{
+		position: absolute;
+		top: 250px;
+		display: none;
+	}
+
+	.toboggan-unified #edit-account legend{display: none;}
+}

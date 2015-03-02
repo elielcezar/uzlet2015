@@ -1,0 +1,55 @@
+@media (max-width: 460px){
+/*--- TOPO -----------------------------------------------------------*/	
+/* busca */
+header #block-views-exp-search-page-page form label{display: none;}
+header #block-views-exp-search-page-page .views-submit-button .form-submit{	
+	padding: 10px 8px;
+	font-size: 11px;
+}
+/* carrinho */
+header .carrinho #block-commerce-cart-cart .cart-contents table td{	padding: 10px 0;}
+header .carrinho #block-commerce-cart-cart .cart-contents .views-field-quantity{display: none;}
+/*--- PRINCIPAL ------------------------------------------------------*/
+/* banner facilidades */
+.front #principal .banner-facilidades{display: none;}
+/* banners destaque */
+span.glyphicon{	top: -140px !important;}
+
+/* paginacao */
+ul.pager li{
+	width: 100% !important;
+	display: block;	
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+
+/*--- LOGIN ----------------------------------------------------------*/
+.page-user header,
+.page-user #principal,
+.page-user .container-principal,
+.page-user footer{
+	width: 430px; 
+	min-width: 430px;
+	max-width: 430px;		
+	float: left;
+}
+/*--- PAGINA DE UM PRODUTO -------------------------------------------*/
+.node-type-smartphone .foto-produto{height: 240px;}
+.node-type-smartphone .panel-col-first{
+	padding: 0;
+	margin: 0;	
+}	
+.node-type-smartphone .panel-col-last{
+	padding: 0;
+	margin: 0;	
+}	
+/*--- PAGINA DO CARRINHO -----------------------------------------------*/
+.page-cart .commerce-line-item-actions{text-align: center;}
+.page-cart .commerce-line-item-actions a.botao,
+.page-cart .commerce-line-item-actions input.form-submit{
+	width: 90%;
+	margin: 10px auto;	
+	display: inline-block;
+}
+}

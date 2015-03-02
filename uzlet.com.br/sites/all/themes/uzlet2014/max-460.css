@@ -1,0 +1,29 @@
+@media (max-width: 460px){
+
+	/*--- TOPO --------------------------------*/	
+	header .navbar #block-commerce-cart-cart .cart-contents,
+	header .navbar #block-commerce-cart-cart .cart-empty-block{
+		width: 250px;			
+	}
+	
+	/* ---HOME ---------------------------------*/		
+
+	/* destaque */
+	.front #destaque .chamada{
+		padding: 20px;
+	}
+	.front #destaque .chamada h3{		
+		width: 90% !important;		
+		font-size: 28px;
+	}
+	.front #destaque .chamada .saiba-mais{
+		width: 90%;
+		font-size: 16px;
+	}
+	.front #destaque .chamada .saiba-mais span{
+		padding: 5px;
+		background-image: none;
+	}
+
+}
+
