@@ -57,3 +57,5 @@
 
 $sites['uzlet.com.br'] = 'default';
 $sites['shop.uzlet.com.br'] = 'uzletshop';
+
+include 'sites.local.php';
