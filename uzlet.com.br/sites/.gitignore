@@ -1,0 +1,2 @@
+# Ignore environment specific configuration files.
+sites.local.php
