@@ -118,6 +118,7 @@ class MoipCheckoutTransparenteForm {
       ))
     );
 
+
     return $form;
   }
 
@@ -129,7 +130,10 @@ class MoipCheckoutTransparenteForm {
       $moip_ct_answer = json_decode($pane_values['moip_ct']['answer']);
 
       if (variable_get('moip_debug', FALSE)) {
-        watchdog('moipdbg_ct_answer', $payment_way_option . ': <pre>' . print_r($moip_ct_answer, TRUE) . '</pre>');
+        watchdog('moipdbg_ct_answer', t('@payment_way_option: <pre>@pre</pre>', array(
+          '@payment_way_option' => $payment_way_option,
+          '@pre' => print_r($moip_ct_answer, TRUE)
+        )));
       }
 
       if (empty($payment_way) || empty($moip_ct_answer)) {

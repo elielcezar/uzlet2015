@@ -29,9 +29,14 @@ class MoipNasp {
 
     // Checks what is being passed to the url, preventing hijacks
     if (empty($data['id_transacao']) || empty($data['cod_moip'])) {
-      watchdog('moip', t('An attempt to access NASP notification url was made, with wrong parameters. See below:') . ' <pre>' . print_r($_REQUEST, TRUE) . '</pre>'
-          , array()
-          , WATCHDOG_ERROR);
+      watchdog(
+        'moip'
+        , t('An attempt to access NASP notification url was made, with wrong parameters. See below: <pre>@pre</pre>', array(
+          '@pre' => print_r($_REQUEST, TRUE)
+        ))
+        , array()
+        , WATCHDOG_ERROR
+      );
       throw new Exception(t('Wrong parameters was sent to the MoIP integration notification page'));
     }
 

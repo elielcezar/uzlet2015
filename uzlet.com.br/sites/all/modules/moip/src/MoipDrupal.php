@@ -38,7 +38,7 @@ class MoipDrupal {
 
     $this->moip->setNotificationURL(url('moip/notification', array('absolute' => TRUE)));
     $this->moip->setReason($this->getReason());
-    
+
     $amount_integer = $this->order_wrapper->commerce_order_total->amount->value();
     $currency_code = $this->order_wrapper->commerce_order_total->currency_code->value();
     $amount = round(commerce_currency_amount_to_decimal($amount_integer, $currency_code), 2);
@@ -88,7 +88,9 @@ class MoipDrupal {
     $answer = $this->moip->getAnswer();
 
     if (variable_get('moip_debug', FALSE)) {
-      watchdog('moipdbg_answer', '<pre>' . print_r($answer, TRUE) . '</pre>');
+      watchdog('moipdbg_answer', t('<pre>@pre</pre>', array(
+        '@pre' => print_r($answer, TRUE)
+      )));
     }
 
     if (is_string($answer) && strpos($answer, 'Error:') !== FALSE) {
