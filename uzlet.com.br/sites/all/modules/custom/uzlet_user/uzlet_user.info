@@ -1,0 +1,9 @@
+name = Uzlet User customizations
+core = 7.x
+package = Uzlet
+dependencies[] = addressfield
+dependencies[] = br_address
+dependencies[] = features
+features[features_api][] = api:2
+features[field_base][] = field_user_address
+features[field_instance][] = user-user-field_user_address
