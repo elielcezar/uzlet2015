@@ -1,6 +1,6 @@
 name = Uzlet
 description = Tema exclusivo para o site Uzlet
-package = Core
+package = Uzlet
 core = 7.x
 
 regions[header] = Header
