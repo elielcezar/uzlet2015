@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update functions for ctools.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function uzlet_deploy_install() {
+  uzlet_deploy_update_7100();
+  uzlet_deploy_update_7101();
+}
+
+/**
+ * Disable pagseguro module.
+ */
+function uzlet_deploy_update_7100() {
+  module_disable(array(
+    'pagseguro',
+  ));
+}
+
+/**
+ * Enable moip and uzlet customization module.
+ */
+function uzlet_deploy_update_7101() {
+  module_enable(array(
+    'moip',
+    'strongarm',
+    'uzlet_user',
+    'uzlet_payment_fixes',
+  ));
+}

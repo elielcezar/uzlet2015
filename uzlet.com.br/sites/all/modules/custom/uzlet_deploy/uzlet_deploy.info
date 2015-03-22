@@ -1,0 +1,4 @@
+name = Uzlet Custom Deployment Module
+description = A cusotm module to manage deployment tasks.
+core = 7.x
+package = Uzlet

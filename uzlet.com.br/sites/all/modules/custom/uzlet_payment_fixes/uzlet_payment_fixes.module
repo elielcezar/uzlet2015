@@ -1,0 +1,11 @@
+<?php
+
+/**
+ * @file
+ * Uzlet Payment Fixes module file.
+ *
+ * Provides fixes for the moip payment method needed based on the website's
+ * architecture.
+ */
+
+
