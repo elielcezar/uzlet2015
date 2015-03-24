@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains install and update functions for ctools.
+ * Contains install and update functions for Uzlet Deploy modules.
  */
 
 /**
@@ -27,7 +27,6 @@ function uzlet_deploy_update_7100() {
  */
 function uzlet_deploy_update_7101() {
   module_enable(array(
-    'moip',
     'strongarm',
     'uzlet_user',
     'uzlet_payment_fixes',
