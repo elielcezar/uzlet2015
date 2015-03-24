@@ -18,11 +18,12 @@ function uzlet_user_field_default_field_instances() {
         'element_key' => 'user|user|field_user_address|und|0',
         'thoroughfare' => '',
         'premise' => '',
-        'postal_code' => '',
+        'dependent_locality' => '',
         'locality' => '',
         'administrative_area' => '',
-        'dependent_locality' => '',
+        'postal_code' => '',
         'country' => 'BR',
+        'name_line' => '',
       ),
     ),
     'deleted' => 0,
@@ -69,7 +70,7 @@ function uzlet_user_field_default_field_instances() {
         ),
       ),
       'type' => 'addressfield_standard',
-      'weight' => 2,
+      'weight' => 3,
     ),
   );
 
