@@ -8,4 +8,70 @@
  * architecture.
  */
 
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function uzlet_payment_fixes_form_user_profile_form_alter(&$form, &$form_state) {
 
+  $user = $form['#user'];
+  $profile = $form['profile_main']['#entity'];
+
+  // Populate user address field with the data previously stored in the Profile 2 entity.
+  _uzlet_payment_fixes_populate_user_profile_form($form, $user, $profile);
+
+  // Hides name block to prevent duplicity.
+  $form['field_user_address'][LANGUAGE_NONE][0]['name_block']['name_line']['#access'] = FALSE;
+
+  // Hides the Profile 2 addressfield group.
+  _uzlet_payment_fixes_hide_profile2_address($form);
+}
+
+/**
+ * Helper function to hide user address field form profile 2 entity.
+ *
+ * @param  array &$form
+ *   User profile form
+ */
+function _uzlet_payment_fixes_hide_profile2_address(&$form) {
+
+  foreach ($form['profile_main']['#group_children'] as $key => $value) {
+    if ($value == 'group_endereco') {
+      unset($form['profile_main']['#group_children'][$key]);
+      $form['profile_main'][$key]['#access'] = FALSE;
+    }
+  }
+}
+
+/**
+ * Helper function to populate the new user address field.
+ *
+ * @param  array &$form
+ *   User profile form
+ * @param  object $user
+ *   User entity
+ * @param  object $profile
+ *   Profile 2 entity
+ */
+function _uzlet_payment_fixes_populate_user_profile_form(&$form, $user, $profile) {
+
+  $profile_wpr = entity_metadata_wrapper('profile2', $profile);
+  $user_wpr = entity_metadata_wrapper('user', $user);
+
+  $profile_name = $profile_wpr->field_nome_completo->value();
+  $profile_cep = $profile_wpr->field_cep->value();
+  $profile_phone = $profile_wpr->field_telefone->value();
+  $profile_street = $profile_wpr->field_rua->value();
+  $profile_number = $profile_wpr->field_numero->value();
+  $profile_premise = $profile_wpr->field_complemento->value();
+  $profile_city = $profile_wpr->field_cidade->value();
+  $profile_deploc = $profile_wpr->field_bairro->value();
+  $profile_state = $profile_wpr->field_estado2->value();
+
+  $form['field_user_address'][LANGUAGE_NONE][0]['#address']['name_line'] = $profile_name;
+  $form['field_user_address'][LANGUAGE_NONE][0]['#address']['postal_code'] = $profile_cep;
+  $form['field_user_address'][LANGUAGE_NONE][0]['#address']['thoroughfare'] = $profile_street . ', ' . $profile_number;
+  $form['field_user_address'][LANGUAGE_NONE][0]['#address']['premise'] = $profile_premise;
+  $form['field_user_address'][LANGUAGE_NONE][0]['#address']['locality'] = $profile_city;
+  $form['field_user_address'][LANGUAGE_NONE][0]['#address']['dependent_locality'] = $profile_deploc;
+  $form['field_user_address'][LANGUAGE_NONE][0]['#address']['administrative_area'] = $profile_state;
+}
