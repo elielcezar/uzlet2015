@@ -14,21 +14,24 @@ function uzlet_deploy_install() {
 }
 
 /**
- * Disable pagseguro module.
+ * Enable Uzlet user customization module.
  */
 function uzlet_deploy_update_7100() {
-  module_disable(array(
-    'pagseguro',
-  ));
+  module_enable(array('uzlet_user'));
 }
 
 /**
- * Enable moip and uzlet customization module.
+ * Enable Uzlet payment customization module.
  */
 function uzlet_deploy_update_7101() {
-  module_enable(array(
-    'strongarm',
-    'uzlet_user',
-    'uzlet_payment_fixes',
-  ));
+  module_enable(array('uzlet_payment_fixes'));
 }
+
+/**
+ * Disable pagseguro module.
+ */
+// function uzlet_deploy_update_7101() {
+//   module_disable(array(
+//     'pagseguro',
+//   ));
+// }

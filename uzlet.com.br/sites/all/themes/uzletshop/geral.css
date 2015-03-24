@@ -980,7 +980,7 @@ section#destaque .carousel{margin: 25px 0;}
 
 /*--- PAGINAS COM TODOS OS PRODUTOS -----------------------------------------------------------------------*/
 
-body.lista-produtos .messages.error{display: none}
+/*body.lista-produtos .messages.error{display: none}*/
 
 body.lista-produtos #principal h1#page-titke{
 
@@ -1188,7 +1188,7 @@ body.lista-produtos .panel-col-last .view-aparelhos-por-marca .view-empty{
 
 .node-type-smartphone h1#page-title{display: none;}
 
-.node-type-smartphone .messages.error{display: none;}
+/*.node-type-smartphone .messages.error{display: none;}*/
 
 .foto-produto{height: 380px;}
 
@@ -1422,7 +1422,7 @@ body.lista-produtos .panel-col-last .view-aparelhos-por-marca .view-empty{
 
 /*--- CHECKOUT -----------------------------------------------------------------------------------*/
 
-.page-checkout .messages.status{display: none;}
+/*.page-checkout .messages.status{display: none;}*/
 
 .page-checkout fieldset{margin-bottom: 15px;}
 
@@ -1472,6 +1472,11 @@ body.lista-produtos .panel-col-last .view-aparelhos-por-marca .view-empty{
 
 .page-checkout .commerce_shipping legend{display: none;}
 
+.page-checkout .customer_profile_shipping .addressfield-container-inline .form-item {
+  float: none;
+  display: block;
+}
+
 /* CALCULO DO FRETE */
 
 #edit-customer-profile-shipping{padding-bottom: 0; margin-bottom: 0;}
@@ -1480,7 +1485,7 @@ body.lista-produtos .panel-col-last .view-aparelhos-por-marca .view-empty{
 
 .page-checkout p.envio-nao-encontrado{display: none;}
 
-.page-checkout #commerce-shipping-service-ajax-wrapper .messages.error{display: none;}
+/*.page-checkout #commerce-shipping-service-ajax-wrapper .messages.error{display: none;}*/
 
 /* TERMOS DE SERVICO */
 
@@ -1584,22 +1589,23 @@ body.page-user,
 
 /* recuperacao de senha */
 
-.page-user-reset .messages,
+/*.page-user-reset .messages,
 
 .page-user-reset #edit-actions p,
 
-.page-user-reset #edit-actions #edit-checkout{display: none;}
+.page-user-reset #edit-actions #edit-checkout{display: none;}*/
 
 /* editar conta do usuario */
 
 .page-user #edit-locale{display: none}
 .page-user #edit-mimemail{display: none;}
+
+.page-user-me-edit #edit-mimemail{display: none;}
+
 .page-user #edit-field-user-address .addressfield-container-inline > .form-item {
   float: none;
   display: block;
 }
-
-.page-user-me-edit #edit-mimemail{display: none;}
 
 /*--- PAGINA DE UMA VENDA ESPECIFICA ---------------------------------------------------------------*/
 
@@ -1976,4 +1982,3 @@ footer .facebook-like{
   margin: 20px -15px 0 0;
 
 }
-
