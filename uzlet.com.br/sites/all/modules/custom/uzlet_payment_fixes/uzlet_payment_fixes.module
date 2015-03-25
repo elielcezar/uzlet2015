@@ -23,14 +23,22 @@ function uzlet_payment_fixes_commerce_payment_method_info_alter(&$payment_method
  */
 function uzlet_payment_fixes_commerce_checkout_pane_info_alter(&$checkout_panes) {
 
-  $checkout_panes['cart_contents']['weight'] = -20;
-  $checkout_panes['commerce_checkout_review_pane']['weight'] = -20;
-  $checkout_panes['account']['weight'] = -19;
-  $checkout_panes['customer_profile_shipping']['weight'] = -18;
-  $checkout_panes['commerce_shipping']['weight'] = -17;
-  $checkout_panes['stock_validation_checkout_pane']['weight'] = -16;
-  $checkout_panes['extra_pane__node__50']['weight'] = -15;
-  $checkout_panes['customer_profile_billing']['weight'] = -14;
-  $checkout_panes['commerce_payment']['weight'] = -13;
-  $checkout_panes['checkout_completion_message']['weight'] = -20;
+  $panes = array(
+    'cart_contents' => -20,
+    'commerce_checkout_review_pane' => -20,
+    'account' => -19,
+    'customer_profile_shipping' => -18,
+    'commerce_shipping' => -17,
+    'stock_validation_checkout_pane' => -16,
+    'extra_pane__node__50' => -15,
+    'customer_profile_billing' => -14,
+    'commerce_payment' => -13,
+    'checkout_completion_message' => -20,
+  );
+
+  foreach ($panes as $pane_id => $weight) {
+    if (isset($checkout_panes[$pane_id])) {
+      $checkout_panes[$pane_id]['weight'] = $weight;
+    }
+  }
 }
