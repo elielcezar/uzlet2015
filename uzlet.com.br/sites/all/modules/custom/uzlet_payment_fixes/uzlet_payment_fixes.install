@@ -5,6 +5,7 @@
  */
 function uzlet_payment_fixes_install() {
   uzlet_payment_fixes_update_7100();
+  uzlet_payment_fixes_update_7101();
 }
 
 /**
@@ -23,6 +24,22 @@ function uzlet_payment_fixes_update_7100() {
 
   // Disables the payment redirect pane.
   _uzlet_payment_fixes_disable_pane('commerce_payment_redirect');
+}
+
+/**
+ * Enables the Moip Payment Method over PagSeguro.
+ */
+function uzlet_payment_fixes_update_7101() {
+  $rules = array(
+    'commerce_payment_moip_ct' => TRUE,
+    'commerce_payment_pagseguro' => FALSE,
+  );
+
+  foreach ($rules as $name => $active) {
+    $rules_config = rules_config_load($name);
+    $rules_config->active = $active;
+    $rules_config->save();
+  }
 }
 
 /**
