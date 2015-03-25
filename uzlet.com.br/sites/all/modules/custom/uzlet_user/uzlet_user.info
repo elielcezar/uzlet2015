@@ -1,4 +1,5 @@
 name = Uzlet User customizations
+description = Provides user related customizations for the website.
 core = 7.x
 package = Uzlet
 dependencies[] = addressfield
