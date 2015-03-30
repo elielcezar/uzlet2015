@@ -58,7 +58,6 @@ function _uzlet_user_populate_user_profile_form(&$form, $user, $profile) {
 
   $profile_name = $profile_wpr->field_nome_completo->value();
   $profile_cep = $profile_wpr->field_cep->value();
-  $profile_phone = $profile_wpr->field_telefone->value();
   $profile_street = $profile_wpr->field_rua->value();
   $profile_number = $profile_wpr->field_numero->value();
   $profile_premise = $profile_wpr->field_complemento->value();

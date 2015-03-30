@@ -1472,7 +1472,8 @@ body.lista-produtos .panel-col-last .view-aparelhos-por-marca .view-empty{
 
 .page-checkout .commerce_shipping legend{display: none;}
 
-.page-checkout .customer_profile_shipping .addressfield-container-inline .form-item {
+.page-checkout .customer_profile_shipping .addressfield-container-inline .form-item,
+.page-checkout .customer_profile_billing .addressfield-container-inline .form-item {
   float: none;
   display: block;
 }
