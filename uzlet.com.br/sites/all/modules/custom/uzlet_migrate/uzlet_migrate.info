@@ -1,0 +1,4 @@
+name = Uzlet Field Migration Module
+description = A cusotm module to migrate user address fields.
+core = 7.x
+package = Uzlet

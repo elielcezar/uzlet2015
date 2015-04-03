@@ -11,6 +11,7 @@
 function uzlet_deploy_install() {
   uzlet_deploy_update_7100();
   uzlet_deploy_update_7101();
+  uzlet_deploy_update_7102();
 }
 
 /**
@@ -28,10 +29,8 @@ function uzlet_deploy_update_7101() {
 }
 
 /**
- * Disable pagseguro module.
+ * Enable Uzlet Migrate module.
  */
-// function uzlet_deploy_update_7101() {
-//   module_disable(array(
-//     'pagseguro',
-//   ));
-// }
+function uzlet_deploy_update_7102() {
+  module_disable(array('uzlet_migrate'));
+}

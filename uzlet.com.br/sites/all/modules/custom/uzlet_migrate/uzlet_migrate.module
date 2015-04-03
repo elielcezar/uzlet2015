@@ -1,0 +1,95 @@
+<?php
+
+/**
+ * @file
+ * Uzlet Migrate module file.
+ */
+
+/**
+ * Implements hook_page_build().
+ */
+function uzlet_migrate_page_build(&$page) {
+  // If the user has a NULL address, notify them to update it.
+  global $user;
+  $user_wpr = entity_metadata_wrapper('user', $user);
+  $address = $user_wpr->field_user_address->value();
+
+  if (!empty($user->uid) && empty($address)) {
+   drupal_set_message(t("We've made improvements on our payment method. Please update your <a href='@user-edit'>address settings</a>.", array('@user-edit' => url("user/$user->uid/edit", array('query' => drupal_get_destination(), 'fragment' => 'edit-field-user-address')))));
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function uzlet_migrate_form_alter(&$form, &$form_state, $form_id) {
+
+  if ($form_id != 'commerce_checkout_form_checkout') {
+    return;
+  }
+
+  global $user;
+  $profile2 = profile2_load_by_user($user->uid);
+
+  // Fills the billing profile with the already entered data stored in
+  // Profile 2 user profile.
+  _uzlet_migrate_populate_checkout_profiles($form, $user, $profile2);
+}
+
+/**
+ * Helper function to populate the shipping and billing profiles at checkout.
+ *
+ * @param  array &$form
+ *   User profile form
+ * @param  array $form_fields
+ *   The fields to be populated
+ * @param  object $user
+ *   User entity
+ * @param  object $profile
+ *   Commerce Customer Profile entity
+ */
+function _uzlet_migrate_populate_checkout_profiles(&$form, $user, $profile) {
+
+  // Skip if the billing field is already filled.
+  if (!empty($form['customer_profile_billing']['commerce_customer_address'][LANGUAGE_NONE][0]['#address']['thoroughfare']) &&
+    !empty($form['customer_profile_shipping']['commerce_customer_address'][LANGUAGE_NONE][0]['#address']['thoroughfare'])) {
+    return;
+  }
+
+  $user_wpr = entity_metadata_wrapper('user', $user);
+  $usr_full = $user_wpr->value();
+
+  if (!empty($usr_ful->field_user_address)) {
+    return;
+  }
+
+  $map = array(
+    'field_nome_completo' => 'name_line',
+    'field_cep' => 'postal_code',
+    'field_rua' => 'thoroughfare',
+    'field_numero' => 'thoroughfare',
+    'field_complemento' => 'premise',
+    'field_cidade' => 'locality',
+    'field_bairro' => 'dependent_locality',
+    'field_estado2' => 'administrative_area',
+  );
+
+  $profile_wrp = entity_metadata_wrapper('profile2', $profile['main']);
+
+  $form_fields = array(
+    'form_billing' => 'customer_profile_billing',
+    'form_shipping' => 'customer_profile_shipping',
+  );
+
+  foreach ($form_fields as $key => $form_field) {
+    foreach ($map as $field => $address_field) {
+      if ($address_field == 'thoroughfare'&&
+          !empty($form[$form_field]['commerce_customer_address'][LANGUAGE_NONE][0]['#address'][$address_field])) {
+        $form[$form_field]['commerce_customer_address'][LANGUAGE_NONE][0]['#address'][$address_field] .= ', ' . $profile_wrp->{$field}->value();
+        continue;
+      }
+
+      $form[$form_field]['commerce_customer_address'][LANGUAGE_NONE][0]['#address'][$address_field] = $profile_wrp->{$field}->value();
+    }
+  }
+}
