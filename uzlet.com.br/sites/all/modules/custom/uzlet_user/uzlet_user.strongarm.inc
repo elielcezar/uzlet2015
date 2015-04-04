@@ -23,6 +23,7 @@ function uzlet_user_strongarm() {
   $strongarm->name = 'commerce_extra_address_populate_settings';
   $strongarm->value = array(
     'customer_profile_billing' => 'field_user_address',
+    'customer_profile_shipping' => 'field_user_address',
   );
   $export['commerce_extra_address_populate_settings'] = $strongarm;
 
