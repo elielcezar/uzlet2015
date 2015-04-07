@@ -11,7 +11,6 @@
 function uzlet_deploy_install() {
   uzlet_deploy_update_7100();
   uzlet_deploy_update_7101();
-  uzlet_deploy_update_7102();
 }
 
 /**
@@ -22,15 +21,8 @@ function uzlet_deploy_update_7100() {
 }
 
 /**
- * Enable Uzlet payment customization module.
+ * Enable UzletShop Payment Fixes module.
  */
 function uzlet_deploy_update_7101() {
-  module_enable(array('uzlet_payment_fixes'));
-}
-
-/**
- * Enable Uzlet Migrate module.
- */
-function uzlet_deploy_update_7102() {
-  module_disable(array('uzlet_migrate'));
+  module_enable(array('uzletshop_payment_fixes'));
 }

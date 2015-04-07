@@ -1,0 +1,95 @@
+<?php
+
+/**
+ * Implements hook_install().
+ */
+function uzletshop_payment_fixes_install() {
+  uzletshop_payment_fixes_update_7100();
+  uzletshop_payment_fixes_update_7101();
+  uzletshop_payment_fixes_update_7102();
+}
+
+/**
+ * Applies the new checkout pane ordering.
+ */
+function uzletshop_payment_fixes_update_7100() {
+
+  // Adds the billing and shipping panes into the checkout page.
+  $checkout_panes = array(
+    'customer_profile_shipping',
+    'customer_profile_billing',
+    'commerce_shipping',
+    'commerce_payment',
+  );
+  _uzletshop_payment_fixes_add_pane_to_checkout_page($checkout_panes);
+
+  // Disables the payment redirect pane.
+  _uzletshop_payment_fixes_disable_pane('commerce_payment_redirect');
+}
+
+/**
+ * Enables the Moip Payment Method over PagSeguro.
+ */
+function uzletshop_payment_fixes_update_7101() {
+  $rules = array(
+    'commerce_payment_moip_ct' => TRUE,
+    'commerce_payment_pagseguro' => FALSE,
+  );
+
+  foreach ($rules as $name => $active) {
+    $rules_config = rules_config_load($name);
+    $rules_config->active = $active;
+    $rules_config->save();
+  }
+}
+
+/**
+ * Adds string translation for Uzlet Migrate module.
+ */
+function uzletshop_payment_fixes_update_7102() {
+  require_once DRUPAL_ROOT . '/includes/locale.inc';
+
+  global $language;
+
+  $source = "We've made improvements on our payment method. Please update your <a href='@user-edit'>address settings</a>.";
+  $translation = "Fizemos melhorias no nosso método de pagamento. Favor atualize seus <a href='@user-edit'>dados de endereço</a>.";
+  $textgroup = 'default';
+  $context = '';
+  $langcode = 'pt-br';
+
+  $report = &drupal_static(__FUNCTION__, array('additions' => 0, 'updates' => 0, 'deletes' => 0, 'skips' => 0));
+  _locale_import_one_string_db($report, $langcode, $context, $source, $translation, $textgroup, 'Manual import via helper ' . __FUNCTION__ .'().', LOCALE_IMPORT_OVERWRITE);
+
+  // Clear locale cache.
+  _locale_invalidate_js();
+  cache_clear_all('locale:', 'cache', TRUE);
+}
+
+/**
+ * Adds one or more checkout pane to the checkout page.
+ *
+ * @param  array $pane_ids
+ *   An array of pane ids and its config settings.
+ */
+function _uzletshop_payment_fixes_add_pane_to_checkout_page($pane_ids = array()) {
+
+  if (is_array($pane_ids) && !empty($pane_ids)) {
+    foreach ($pane_ids as $pane_id) {
+      $checkout_pane = commerce_checkout_pane_load($pane_id);
+      $checkout_pane['enabled'] = 1;
+      $checkout_pane['page'] = 'checkout';
+      commerce_checkout_pane_save($checkout_pane);
+    }
+  }
+}
+
+/**
+ * Disables a given checkout pane.
+ */
+function _uzletshop_payment_fixes_disable_pane($pane_id) {
+
+  $checkout_pane = commerce_checkout_pane_load($pane_id);
+  $checkout_pane['enabled'] = 0;
+  $checkout_pane['page'] = 'disabled';
+  commerce_checkout_pane_save($checkout_pane);
+}

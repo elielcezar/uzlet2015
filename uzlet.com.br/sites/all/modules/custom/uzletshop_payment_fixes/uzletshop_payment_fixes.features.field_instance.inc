@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * uzlet_payment_fixes.features.field_instance.inc
+ * uzletshop_payment_fixes.features.field_instance.inc
  */
 
 /**
  * Implements hook_field_default_field_instances().
  */
-function uzlet_payment_fixes_field_default_field_instances() {
+function uzletshop_payment_fixes_field_default_field_instances() {
   $field_instances = array();
 
   // Exported field_instance: 'commerce_customer_profile-billing-commerce_customer_address'

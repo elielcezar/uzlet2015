@@ -2,39 +2,70 @@
 
 /**
  * @file
- * Uzlet Migrate module file.
+ * Uzlet Payment Fixes module file.
+ *
+ * Provides fixes for the moip payment method needed based on the website's
+ * architecture.
  */
+
+include_once 'uzletshop_payment_fixes.features.inc';
+
 
 /**
  * Implements hook_page_build().
  */
-function uzlet_migrate_page_build(&$page) {
+function uzletshop_payment_fixes_page_build(&$page) {
   // If the user has a NULL address, notify them to update it.
   global $user;
   $user_wpr = entity_metadata_wrapper('user', $user);
   $address = $user_wpr->field_user_address->value();
 
   if (!empty($user->uid) && empty($address)) {
-   drupal_set_message(t("We've made improvements on our payment method. Please update your <a href='@user-edit'>address settings</a>.", array('@user-edit' => url("user/$user->uid/edit", array('query' => drupal_get_destination(), 'fragment' => 'edit-field-user-address')))));
+   drupal_set_message(t("We've made improvements on our payment method. Please update your <a href='@user-edit'>address settings</a>.", array('@user-edit' => url("user/$user->uid/edit", array('query' => drupal_get_destination(), 'fragment' => 'edit-field-user-address')))), 'warning');
   }
 }
 
 /**
- * Implements hook_form_alter().
+ * Implements hook_commerce_checkout_pane_info_alter().
  */
-function uzlet_migrate_form_alter(&$form, &$form_state, $form_id) {
+function uzletshop_payment_fixes_commerce_checkout_pane_info_alter(&$checkout_panes) {
 
-  if ($form_id != 'commerce_checkout_form_checkout') {
-    return;
+  $checkout_panes['commerce_payment_redirect']['enabled'] = 0;
+  $checkout_panes['commerce_payment_redirect']['page'] = 'disabled';
+
+  $panes = array(
+    'cart_contents' => -20,
+    'commerce_checkout_review_pane' => -20,
+    'account' => -19,
+    'customer_profile_shipping' => -18,
+    'commerce_shipping' => -17,
+    'stock_validation_checkout_pane' => -16,
+    'extra_pane__node__50' => -15,
+    'customer_profile_billing' => -14,
+    'commerce_payment' => -13,
+    'checkout_completion_message' => -20,
+  );
+
+  foreach ($panes as $pane_id => $weight) {
+    if (isset($checkout_panes[$pane_id])) {
+      $checkout_panes[$pane_id]['weight'] = $weight;
+    }
   }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function uzletshop_payment_fixes_form_commerce_checkout_form_checkout_alter(&$form, &$form_state) {
 
   global $user;
   $profile2 = profile2_load_by_user($user->uid);
 
   // Fills the billing profile with the already entered data stored in
   // Profile 2 user profile.
-  _uzlet_migrate_populate_checkout_profiles($form, $user, $profile2);
+  _uzletshop_payment_fixes_populate_checkout_profiles($form, $user, $profile2);
 }
+
 
 /**
  * Helper function to populate the shipping and billing profiles at checkout.
@@ -48,7 +79,7 @@ function uzlet_migrate_form_alter(&$form, &$form_state, $form_id) {
  * @param  object $profile
  *   Commerce Customer Profile entity
  */
-function _uzlet_migrate_populate_checkout_profiles(&$form, $user, $profile) {
+function _uzletshop_payment_fixes_populate_checkout_profiles(&$form, $user, $profile) {
 
   // Skip if the billing field is already filled.
   if (!empty($form['customer_profile_billing']['commerce_customer_address'][LANGUAGE_NONE][0]['#address']['thoroughfare']) &&
@@ -83,8 +114,10 @@ function _uzlet_migrate_populate_checkout_profiles(&$form, $user, $profile) {
 
   foreach ($form_fields as $key => $form_field) {
     foreach ($map as $field => $address_field) {
-      if ($address_field == 'thoroughfare'&&
-          !empty($form[$form_field]['commerce_customer_address'][LANGUAGE_NONE][0]['#address'][$address_field])) {
+      // Fills the thoroughfare based in the br_address pattern.
+      if ($address_field == 'thoroughfare' &&
+          !empty($form[$form_field]['commerce_customer_address'][LANGUAGE_NONE][0]['#address'][$address_field]) &&
+          !preg_match('/,/', $form[$form_field]['commerce_customer_address'][LANGUAGE_NONE][0]['#address'][$address_field])) {
         $form[$form_field]['commerce_customer_address'][LANGUAGE_NONE][0]['#address'][$address_field] .= ', ' . $profile_wrp->{$field}->value();
         continue;
       }

@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * uzlet_payment_fixes.features.field_base.inc
+ * uzletshop_payment_fixes.features.field_base.inc
  */
 
 /**
  * Implements hook_field_default_field_bases().
  */
-function uzlet_payment_fixes_field_default_field_bases() {
+function uzletshop_payment_fixes_field_default_field_bases() {
   $field_bases = array();
 
   // Exported field_base: 'commerce_customer_address'
