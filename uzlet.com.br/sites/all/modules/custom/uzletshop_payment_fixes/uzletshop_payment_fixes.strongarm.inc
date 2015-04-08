@@ -37,13 +37,6 @@ function uzletshop_payment_fixes_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'moip_birthday_token';
-  $strongarm->value = '[current-user:profile-main:field_birthday:custom:d/m/Y]';
-  $export['moip_birthday_token'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'moip_cpf_token';
   $strongarm->value = '[current-user:profile-main:field_cpf]';
   $export['moip_cpf_token'] = $strongarm;

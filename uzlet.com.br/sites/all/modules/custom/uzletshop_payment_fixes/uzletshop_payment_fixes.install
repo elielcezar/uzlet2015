@@ -1,12 +1,47 @@
 <?php
 
 /**
+ * @file
+ * Contains install and update functions for Uzlet User module.
+ */
+
+/**
+ * Adds one or more checkout pane to the checkout page.
+ *
+ * @param  array $pane_ids
+ *   An array of pane ids and its config settings.
+ */
+function _uzletshop_payment_fixes_add_pane_to_checkout_page($pane_ids = array()) {
+
+  if (is_array($pane_ids) && !empty($pane_ids)) {
+    foreach ($pane_ids as $pane_id) {
+      $checkout_pane = commerce_checkout_pane_load($pane_id);
+      $checkout_pane['enabled'] = 1;
+      $checkout_pane['page'] = 'checkout';
+      commerce_checkout_pane_save($checkout_pane);
+    }
+  }
+}
+
+/**
+ * Disables a given checkout pane.
+ */
+function _uzletshop_payment_fixes_disable_pane($pane_id) {
+
+  $checkout_pane = commerce_checkout_pane_load($pane_id);
+  $checkout_pane['enabled'] = 0;
+  $checkout_pane['page'] = 'disabled';
+  commerce_checkout_pane_save($checkout_pane);
+}
+
+/**
  * Implements hook_install().
  */
 function uzletshop_payment_fixes_install() {
   uzletshop_payment_fixes_update_7100();
   uzletshop_payment_fixes_update_7101();
   uzletshop_payment_fixes_update_7102();
+  uzletshop_payment_fixes_update_7103();
 }
 
 /**
@@ -66,30 +101,13 @@ function uzletshop_payment_fixes_update_7102() {
 }
 
 /**
- * Adds one or more checkout pane to the checkout page.
- *
- * @param  array $pane_ids
- *   An array of pane ids and its config settings.
+ * Update commerce_checkout_completion_message pane value.
  */
-function _uzletshop_payment_fixes_add_pane_to_checkout_page($pane_ids = array()) {
+function uzletshop_payment_fixes_update_7103() {
 
-  if (is_array($pane_ids) && !empty($pane_ids)) {
-    foreach ($pane_ids as $pane_id) {
-      $checkout_pane = commerce_checkout_pane_load($pane_id);
-      $checkout_pane['enabled'] = 1;
-      $checkout_pane['page'] = 'checkout';
-      commerce_checkout_pane_save($checkout_pane);
-    }
+  $comp_msg = variable_get('commerce_checkout_completion_message', array());
+  if (isset($comp_msg['value'])) {
+    $comp_msg['value'] = str_replace('Paypal', 'MoIP', $comp_msg['value']);
+    variable_set('commerce_checkout_completion_message', $comp_msg);
   }
-}
-
-/**
- * Disables a given checkout pane.
- */
-function _uzletshop_payment_fixes_disable_pane($pane_id) {
-
-  $checkout_pane = commerce_checkout_pane_load($pane_id);
-  $checkout_pane['enabled'] = 0;
-  $checkout_pane['page'] = 'disabled';
-  commerce_checkout_pane_save($checkout_pane);
 }

@@ -61,6 +61,11 @@ function uzletshop_payment_fixes_form_commerce_checkout_form_checkout_alter(&$fo
   global $user;
   $profile2 = profile2_load_by_user($user->uid);
 
+  $form['#attached']['js'][] = array(
+    'data' => drupal_get_path('module', 'uzletshop_payment_fixes') . '/js/uzletshop_payment_fixes.js',
+    'type' => 'file',
+  );
+
   // Fills the billing profile with the already entered data stored in
   // Profile 2 user profile.
   _uzletshop_payment_fixes_populate_checkout_profiles($form, $user, $profile2);
