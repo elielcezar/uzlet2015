@@ -1,0 +1,21 @@
+diff --git a/includes/commerce_shipping.checkout_pane.inc b/includes/commerce_shipping.checkout_pane.inc
+index de7047b..bfcf775 100644
+--- a/includes/commerce_shipping.checkout_pane.inc
++++ b/includes/commerce_shipping.checkout_pane.inc
+@@ -274,10 +274,12 @@ function commerce_shipping_recalculate_services_submit($form, &$form_state) {
+           }
+         }
+ 
+-        // Unset any cached addressfield data for this customer profile.
+-        foreach ($form_state['addressfield'] as $key => $value) {
+-          if (strpos($key, 'commerce_customer_profile|' . $type) === 0) {
+-            unset($form_state['addressfield'][$key]);
++        if (isset($form_state['addressfield'])) {
++          // Unset any cached addressfield data for this customer profile.
++          foreach ($form_state['addressfield'] as $key => $value) {
++            if (strpos($key, 'commerce_customer_profile|' . $type) === 0) {
++              unset($form_state['addressfield'][$key]);
++            }
+           }
+         }
+       }
