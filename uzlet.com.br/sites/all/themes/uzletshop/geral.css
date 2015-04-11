@@ -1,8 +1,7 @@
 body{
 
   padding-top: 0px;
-
-    padding-bottom: 0px;
+  padding-bottom: 0px;
 
 }
 
@@ -145,6 +144,10 @@ form button:active {
 
 }
 
+.form-item .description {
+  padding-top: 0.5em;
+}
+
 h1{
 
   font-size: 36px;
@@ -223,29 +226,29 @@ a.botao{
 
 }
 
-  a.botao:hover{
+a.botao:hover{
 
-    background-color: #333;
+  background-color: #333;
 
-    color: #fff !important;
+  color: #fff !important;
 
-    border-bottom: 4px solid #000;
+  border-bottom: 4px solid #000;
 
-    text-decoration: none;
+  text-decoration: none;
 
-  }
+}
 
-  a.botao:active{
+a.botao:active{
 
-    border-bottom: 1px solid #000;
+  border-bottom: 1px solid #000;
 
-    padding-top: 12px;
+  padding-top: 12px;
 
-    color: #fff !important;
+  color: #fff !important;
 
-    text-decoration: none !important;
+  text-decoration: none !important;
 
-  }
+}
 
 /* paginacao */
 
@@ -1481,6 +1484,10 @@ body.lista-produtos .panel-col-last .view-aparelhos-por-marca .view-empty{
   display: block;
 }
 
+.page-checkout #edit-buttons .checkout-cancel:hover, {
+  border: none;
+}
+
 /* CALCULO DO FRETE */
 
 #edit-customer-profile-shipping{padding-bottom: 0; margin-bottom: 0;}
@@ -1557,6 +1564,10 @@ body.page-user,
 
 }
 
+.page-user #principal .field-content{
+  display: inline-block;
+}
+
 /* vendas do usuario */
 
 .page-user .conteudo .right table{width: 100%;}
@@ -1609,6 +1620,19 @@ body.page-user,
 .page-user #edit-field-user-address .addressfield-container-inline > .form-item {
   float: none;
   display: block;
+}
+
+#register-form #field-user-address-add-more-wrapper .ajax-progress{
+  margin: 8px 0 0 204px;
+}
+
+#register-form .state {
+  background: white;
+}
+
+#register-form #edit-account .description,
+#register-form .form-type-password-confirm .description {
+  display: none;
 }
 
 /*--- PAGINA DE UMA VENDA ESPECIFICA ---------------------------------------------------------------*/

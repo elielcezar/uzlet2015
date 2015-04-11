@@ -1,128 +1,251 @@
-@media (min-width: 768px){
-
-
-	/* busca */
-	header #block-views-exp-search-page-page{margin-top: 25px;}
-
-
-	/* carrinho */
-	header .carrinho .contextual-links-trigger{display: none !important;}
-	header .carrinho #block-commerce-cart-cart{	
-		float: right;		
-		width: 45px;
-		height: 42px;	
-		cursor: pointer;
-		margin-top: 0;
-		position: relative;
-		background: transparent url(images/ico_carrinho.png) 5px 7px no-repeat;		
-	}
-	header .carrinho #block-commerce-cart-cart .cart-contents,
-	header .carrinho #block-commerce-cart-cart .cart-empty-block{
-		width: 400px;	
-		position: absolute;
-		top: 40px;
-		right: 0;
-		z-index: 50;
-		background: #fff;			
-		padding: 10px;
-		box-shadow: 2px 2px 2px #888;
-		-webkit-border-radius: 5px;
-		-moz-border-radius: 5px;
-		border-radius: 5px;
-		border: 1px solid #ccc;
-			display: none;
-	}
-	
-	/* exibe informaçõe no mouse over*/
-	header .carrinho:hover #block-commerce-cart-cart .cart-contents,
-	header .carrinho:hover #block-commerce-cart-cart .cart-empty-block{display:block;}
-
-
-	header .carrinho:hover .cart-contents .view-content,
-	header .carrinho:hover .cart-contents #topnav2,
-	header .carrinho:hover .cart-contents .line-item-total-label{display:block;}
-
-	header .carrinho:hover #block-commerce-cart-cart .cart-contents{
-		width: 400px;	
-		position: absolute;
-		top: 40px;
-		right: 0;
-		z-index: 50;
-		background: #fff;
-		color: #333;	
-		display: block;
-		padding: 13px;
-		box-shadow: 2px 2px 2px #888;
-		-webkit-border-radius: 5px;
-		-moz-border-radius: 5px;
-		border-radius: 5px;
-		border: 1px solid #ccc;
-	}
-	header .carrinho:hover #block-commerce-cart-cart .cart-contents a{color: #e7511e;}
-	header .carrinho:hover #block-commerce-cart-cart .cart-contents .views-table{width: 100%;}
-	header .carrinho:hover #block-commerce-cart-cart .cart-contents .views-table tr{border: 1px solid #fff;}
-	header .carrinho:hover #block-commerce-cart-cart .cart-contents .views-table td{
-		background: #fff;
-		border: none;
-		padding: 0 5px;
-	}
-	header .carrinho:hover #block-commerce-cart-cart .cart-contents .line-item-total{
-		margin: 15px 0;
-		padding: 5px 0;
-		border-top: 1px solid #ccc;
-		border-bottom: 1px solid #ccc;
-	}
-	header .carrinho:hover #block-commerce-cart-cart .cart-contents .line-item-total span{display: inline;}
-	header .carrinho:hover #block-commerce-cart-cart .cart-contents .line-item-quantity{display: none;}
-	header .carrinho:hover #block-commerce-cart-cart .cart-contents .line-item-summary-checkout a,
-	header .carrinho:hover #block-commerce-cart-cart .cart-contents .line-item-summary-view-cart a{
-		border-radius: 3px;	
-		padding: 7px 10px;
-		display: block;
-		margin: 0 0 0 15px;	
-		font-family: 'Nexa Heavy', sans-serif;
-		float: right;
-		width: auto;	
-	}
-	header .carrinho:hover #block-commerce-cart-cart .cart-contents .line-item-summary-checkout a{
-		background: #e7511e;
-		color: #fff;
-		border: 1px solid #e7511e;
-	}
-	header .carrinho:hover #block-commerce-cart-cart .cart-contents .line-item-summary-view-cart a{
-		background: #f5f5f5;
-		border: 1px solid #ccc;
-	}		
-	header .carrinho:hover #block-commerce-cart-cart .cart-contents .line-item-summary-view-cart a:hover,
-	header .carrinho:hover #block-commerce-cart-cart .cart-contents .line-item-summary-checkout a:hover{
-		background: #333 !important;
-		color: #fff;
-	}
-
-
-	/* LOGIN */
-	.page-user #login-form,
-	.page-user #register-form{			
-		display: block !important;		
-	}
-		
-	.toboggan-unified #login-message,
-	.toboggan-unified #login-links{
-		display: none;
-	}
-	.toboggan-unified .description{display: none;}
-	.toboggan-unified{position: relative;}
-	.toboggan-unified label{
-		width: 200px;
-		text-align: right;
-	}
-	.toboggan-unified input.form-text{width: 200px;}
-	
-	.toboggan-unified div.password-confirm{
-		position: absolute;
-		top: 250px;
-		display: none;
-	}
-
-	.toboggan-unified #edit-account legend{display: none;}
-}
+@media (min-width: 768px){
+
+
+  /* busca */
+
+  header #block-views-exp-search-page-page{margin-top: 25px;}
+
+
+  /* carrinho */
+
+  header .carrinho .contextual-links-trigger{display: none !important;}
+
+  header .carrinho #block-commerce-cart-cart{
+
+    float: right;
+
+    width: 45px;
+
+    height: 42px;
+
+    cursor: pointer;
+
+    margin-top: 0;
+
+    position: relative;
+
+    background: transparent url(images/ico_carrinho.png) 5px 7px no-repeat;
+
+  }
+
+  header .carrinho #block-commerce-cart-cart .cart-contents,
+
+  header .carrinho #block-commerce-cart-cart .cart-empty-block{
+
+    width: 400px;
+
+    position: absolute;
+
+    top: 40px;
+
+    right: 0;
+
+    z-index: 50;
+
+    background: #fff;
+
+    padding: 10px;
+
+    box-shadow: 2px 2px 2px #888;
+
+    -webkit-border-radius: 5px;
+
+    -moz-border-radius: 5px;
+
+    border-radius: 5px;
+
+    border: 1px solid #ccc;
+
+      display: none;
+
+  }
+
+
+
+  /* exibe informaçõe no mouse over*/
+
+  header .carrinho:hover #block-commerce-cart-cart .cart-contents,
+
+  header .carrinho:hover #block-commerce-cart-cart .cart-empty-block{display:block;}
+
+
+
+
+
+  header .carrinho:hover .cart-contents .view-content,
+
+  header .carrinho:hover .cart-contents #topnav2,
+
+  header .carrinho:hover .cart-contents .line-item-total-label{display:block;}
+
+
+
+  header .carrinho:hover #block-commerce-cart-cart .cart-contents{
+
+    width: 400px;
+
+    position: absolute;
+
+    top: 40px;
+
+    right: 0;
+
+    z-index: 50;
+
+    background: #fff;
+
+    color: #333;
+
+    display: block;
+
+    padding: 13px;
+
+    box-shadow: 2px 2px 2px #888;
+
+    -webkit-border-radius: 5px;
+
+    -moz-border-radius: 5px;
+
+    border-radius: 5px;
+
+    border: 1px solid #ccc;
+
+  }
+
+  header .carrinho:hover #block-commerce-cart-cart .cart-contents a{color: #e7511e;}
+
+  header .carrinho:hover #block-commerce-cart-cart .cart-contents .views-table{width: 100%;}
+
+  header .carrinho:hover #block-commerce-cart-cart .cart-contents .views-table tr{border: 1px solid #fff;}
+
+  header .carrinho:hover #block-commerce-cart-cart .cart-contents .views-table td{
+
+    background: #fff;
+
+    border: none;
+
+    padding: 0 5px;
+
+  }
+
+  header .carrinho:hover #block-commerce-cart-cart .cart-contents .line-item-total{
+
+    margin: 15px 0;
+
+    padding: 5px 0;
+
+    border-top: 1px solid #ccc;
+
+    border-bottom: 1px solid #ccc;
+
+  }
+
+  header .carrinho:hover #block-commerce-cart-cart .cart-contents .line-item-total span{display: inline;}
+
+  header .carrinho:hover #block-commerce-cart-cart .cart-contents .line-item-quantity{display: none;}
+
+  header .carrinho:hover #block-commerce-cart-cart .cart-contents .line-item-summary-checkout a,
+
+  header .carrinho:hover #block-commerce-cart-cart .cart-contents .line-item-summary-view-cart a{
+
+    border-radius: 3px;
+
+    padding: 7px 10px;
+
+    display: block;
+
+    margin: 0 0 0 15px;
+
+    font-family: 'Nexa Heavy', sans-serif;
+
+    float: right;
+
+    width: auto;
+
+  }
+
+  header .carrinho:hover #block-commerce-cart-cart .cart-contents .line-item-summary-checkout a{
+
+    background: #e7511e;
+
+    color: #fff;
+
+    border: 1px solid #e7511e;
+
+  }
+
+  header .carrinho:hover #block-commerce-cart-cart .cart-contents .line-item-summary-view-cart a{
+
+    background: #f5f5f5;
+
+    border: 1px solid #ccc;
+
+  }
+
+  header .carrinho:hover #block-commerce-cart-cart .cart-contents .line-item-summary-view-cart a:hover,
+
+  header .carrinho:hover #block-commerce-cart-cart .cart-contents .line-item-summary-checkout a:hover{
+
+    background: #333 !important;
+
+    color: #fff;
+
+  }
+
+  /* LOGIN */
+
+  .page-user #login-form,
+
+  .page-user #register-form{
+
+    display: block !important;
+
+  }
+
+  #register-form .state {
+    width: 200px;
+  }
+
+  .toboggan-unified #login-message,
+
+  .toboggan-unified #login-links{
+
+    display: none;
+
+  }
+
+  .toboggan-unified .description{
+    width: 200px;
+    margin-left:204px;
+  }
+
+  .toboggan-unified{position: relative;}
+
+  .toboggan-unified label{
+
+    width: 200px;
+
+    text-align: right;
+
+  }
+
+  .toboggan-unified input.form-text{width: 200px;}
+
+
+
+  .toboggan-unified div.password-confirm{
+
+    position: absolute;
+
+    top: 250px;
+
+    display: none;
+
+  }
+
+
+
+  .toboggan-unified #edit-account legend{display: none;}
+
+}
+
