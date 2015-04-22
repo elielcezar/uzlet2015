@@ -51,15 +51,6 @@
 
     $('.page-checkout #principal .terms-of-service .messages.error').html('Você precisa aceitar os termos e condições de uso');
 
-    /* redireciona para o site de pagamento (Pagseguro/Paypal) */
-
-    $('.page-checkout-payment #principal h1 , .page-checkout-payment #principal .content').hide();
-
-    $('.page-checkout-payment #principal').append('<h3>Aguarde, você será redirecionado para realizar o pagamento.</h3><br/><br/><br/><img src="http://shop.uzlet.com.br/sites/all/themes/uzletshop/images/loading.gif" />');
-
-    $('.page-checkout-payment #principal form').submit();
-
-
     /*--- perfil do usuario ------------------------------------------------------------------------------*/
 
     $( ".page-user-me-edit #edit-profile-main-field-cpf-und-0-value" ).attr( "disabled", true);
@@ -93,7 +84,6 @@
     $('#edit-profile-main-field-cep-und-0-value').mask('99999-999');
 
     $('.page-user select#edit-profile-main-field-estado2-und option[value=\"_none\"]').text("Selecione um Estado");
-
 
     /*--- pagina com todas as vendas -----------------------------------------------------------------*/
 

@@ -32,6 +32,7 @@ function uzletshop_payment_fixes_commerce_checkout_pane_info_alter(&$checkout_pa
 
   $checkout_panes['commerce_payment_redirect']['enabled'] = 0;
   $checkout_panes['commerce_payment_redirect']['page'] = 'disabled';
+  $checkout_panes['commerce_payment']['page'] = 'payment';
 
   $panes = array(
     'cart_contents' => -20,
@@ -40,9 +41,9 @@ function uzletshop_payment_fixes_commerce_checkout_pane_info_alter(&$checkout_pa
     'customer_profile_shipping' => -18,
     'commerce_shipping' => -17,
     'stock_validation_checkout_pane' => -16,
-    'extra_pane__node__50' => -15,
-    'customer_profile_billing' => -14,
-    'commerce_payment' => -13,
+    'customer_profile_billing' => -15,
+    'extra_pane__node__50' => -14,
+    // 'commerce_payment' => -13,
     'checkout_completion_message' => -20,
   );
 
@@ -54,17 +55,34 @@ function uzletshop_payment_fixes_commerce_checkout_pane_info_alter(&$checkout_pa
 }
 
 /**
+ * Implements hook_commerce_checkout_page_info_alter().
+ */
+function uzletshop_payment_fixes_commerce_checkout_page_info_alter(&$checkout_pages) {
+
+  // Enables prev/next buttons to the payment page.
+  $checkout_pages['payment']['buttons'] = TRUE;
+}
+
+
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function uzletshop_payment_fixes_form_commerce_checkout_form_payment_alter(&$form, &$form_state) {
+
+  $form['#attached']['js'][] = array(
+    'data' => drupal_get_path('module', 'uzletshop_payment_fixes') . '/js/uzletshop_payment_fixes.js',
+    'type' => 'file',
+  );
+}
+
+/**
  * Implements hook_form_FORM_ID_alter().
  */
 function uzletshop_payment_fixes_form_commerce_checkout_form_checkout_alter(&$form, &$form_state) {
 
   global $user;
   $profile2 = profile2_load_by_user($user->uid);
-
-  $form['#attached']['js'][] = array(
-    'data' => drupal_get_path('module', 'uzletshop_payment_fixes') . '/js/uzletshop_payment_fixes.js',
-    'type' => 'file',
-  );
 
   // Fills the billing profile with the already entered data stored in
   // Profile 2 user profile.

@@ -144,6 +144,10 @@ form button:active {
 
 }
 
+select.state {
+  background: white;
+}
+
 .form-item .description {
   padding-top: 0.5em;
 }
@@ -1510,10 +1514,6 @@ body.lista-produtos .panel-col-last .view-aparelhos-por-marca .view-empty{
 
 }
 
-/* PAGAMENTO */
-
-.page-checkout-payment{text-align: center;}
-
 /*--- PAGINA DO USUARIO ----------------------------------------------------------------------------*/
 
 /*.page-user .messages{display: none;}*/
@@ -1624,10 +1624,6 @@ body.page-user,
 
 #register-form #field-user-address-add-more-wrapper .ajax-progress{
   margin: 8px 0 0 204px;
-}
-
-#register-form .state {
-  background: white;
 }
 
 #register-form #edit-account .description,
