@@ -6,18 +6,20 @@
  */
 
 /**
- * Adds one or more checkout pane to the checkout page.
+ * Adds one or more pane to a given checkout page.
  *
  * @param  array $pane_ids
  *   An array of pane ids and its config settings.
+ * @param  array $page
+ *   The checkout page id.
  */
-function _uzletshop_payment_fixes_add_pane_to_checkout_page($pane_ids = array()) {
+function _uzletshop_payment_fixes_add_pane_to_page($pane_ids = array(), $page = 'checkout') {
 
   if (is_array($pane_ids) && !empty($pane_ids)) {
     foreach ($pane_ids as $pane_id) {
       $checkout_pane = commerce_checkout_pane_load($pane_id);
       $checkout_pane['enabled'] = 1;
-      $checkout_pane['page'] = 'checkout';
+      $checkout_pane['page'] = $page;
       commerce_checkout_pane_save($checkout_pane);
     }
   }
@@ -54,9 +56,11 @@ function uzletshop_payment_fixes_update_7100() {
     'customer_profile_shipping',
     'customer_profile_billing',
     'commerce_shipping',
-    'commerce_payment',
   );
-  _uzletshop_payment_fixes_add_pane_to_checkout_page($checkout_panes);
+  _uzletshop_payment_fixes_add_pane_to_page($checkout_panes, 'checkout');
+
+  // Adds the payment pane into the payment page.
+  _uzletshop_payment_fixes_add_pane_to_page(array('commerce_payment'), 'payment');
 
   // Disables the payment redirect pane.
   _uzletshop_payment_fixes_disable_pane('commerce_payment_redirect');

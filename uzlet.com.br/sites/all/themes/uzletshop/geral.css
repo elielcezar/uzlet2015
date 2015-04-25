@@ -1514,6 +1514,10 @@ body.lista-produtos .panel-col-last .view-aparelhos-por-marca .view-empty{
 
 }
 
+#edit-commerce-payment legend { display: none }
+
+#commerce-checkout-form-payment .checkout-help { display:none }
+
 /*--- PAGINA DO USUARIO ----------------------------------------------------------------------------*/
 
 /*.page-user .messages{display: none;}*/
