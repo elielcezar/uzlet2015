@@ -1518,6 +1518,10 @@ body.lista-produtos .panel-col-last .view-aparelhos-por-marca .view-empty{
 
 #commerce-checkout-form-payment .checkout-help { display:none }
 
+#edit-commerce-payment-payment-details-moip-ct label .title {
+  margin-right: 10px;
+}
+
 /*--- PAGINA DO USUARIO ----------------------------------------------------------------------------*/
 
 /*.page-user .messages{display: none;}*/
