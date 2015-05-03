@@ -1,5 +1,17 @@
 (function() {
   (function($) {
+    Drupal.behaviors.uzletShopPF = {
+      attach: function (context, settings) {
+
+        if ($.mask == 'undefined') {
+          return;
+        }
+        // Adds the input mask for birthday and expiration date fields.
+        $('#moip-ct-js-form .creditcard .birthday input', context).mask('99/99/9999')
+        $('#moip-ct-js-form .creditcard .expirationdate input', context).mask('99/9999')
+      },
+    }
+
     // As we are putting all the panes at the same checkout page, the
     // submitCheckoutForm method from moip module because it expects the
     // payment method pane to be in a different checkout page.

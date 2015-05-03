@@ -70,6 +70,12 @@ function uzletshop_payment_fixes_commerce_checkout_page_info_alter(&$checkout_pa
  */
 function uzletshop_payment_fixes_form_commerce_checkout_form_payment_alter(&$form, &$form_state) {
 
+  // Add the masked input library and applies it on the MoIP form.
+  if (module_exists('libraries') && module_exists('masked_imput')) {
+    libraries_load('maskedinput');
+  }
+
+  // Add a custom behavior for the MoIP submit action.
   $form['#attached']['js'][] = array(
     'data' => drupal_get_path('module', 'uzletshop_payment_fixes') . '/js/uzletshop_payment_fixes.js',
     'type' => 'file',
