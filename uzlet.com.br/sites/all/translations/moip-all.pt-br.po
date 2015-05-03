@@ -1,0 +1,672 @@
+# Portuguese, Brazil translation of MoIP (all releases)
+# Copyright (c) 2015 by the Portuguese, Brazil translation team
+# Generated from files:
+#  moip/tpl/js_form.tpl.php: n/a
+#  moip/tpl/moip_ct_js_form.tpl.php: n/a
+#  moip/moip.module: n/a
+#  moip/moip.forms.inc: n/a
+#  moip/lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php: n/a
+#  moip/src/Controllers/FormControllers/MoipConfig.php: n/a
+#  moip/lib/Drupal/moip/Commerce/FormControllers/MoipCheckoutTransparenteForm.php: n/a
+#  moip/src/Commerce/FormControllers/MoipCheckoutTransparenteForm.php: n/a
+#  moip/assets/js/moip.js: n/a
+#  moip/assets/js/moip.min.js: n/a
+#  moip/includes/MoipDrupal.inc: n/a
+#  moip/lib/Drupal/moip/MoipDrupal.php: n/a
+#  moip/src/MoipDrupal.php: n/a
+#  moip/moip.info: n/a
+#  moip/includes/MoipNasp.inc: n/a
+#  moip/lib/Drupal/moip/Entity/MoipNasp.php: n/a
+#  moip/src/Entity/MoipNasp.php: n/a
+#  moip/moip.pages.inc: n/a
+#  moip/lib/Drupal/moip/Commerce/FormControllers/MoipCommerceCheckoutCompleteForm.php: n/a
+#  moip/src/Commerce/FormControllers/MoipCommerceCheckoutCompleteForm.php: n/a
+#  moip/lib/Drupal/moip/Controllers/PageControllers/MoipConfig.php: n/a
+#  moip/lib/Drupal/moip/Controllers/PageControllers/MoipNotification.php: n/a
+#  moip/src/Controllers/PageControllers/MoipConfig.php: n/a
+#  moip/src/Controllers/PageControllers/MoipNotification.php: n/a
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: MoIP (all releases)\n"
+"POT-Creation-Date: 2015-04-27 03:08+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Portuguese, Brazil\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: tpl/js_form.tpl.php:87; tpl/moip_ct_js_form.tpl.php:87
+msgid "Next"
+msgstr "Próximo"
+
+#: moip.module:171
+msgid "E-mail"
+msgstr "Email"
+
+#: moip.forms.inc:118,131,149; lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:165; src/Controllers/FormControllers/MoipConfig.php:165
+msgid "Value"
+msgstr "Valor"
+
+#: moip.forms.inc:13,59,52,47,57,46,56; lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:52,62; src/Controllers/FormControllers/MoipConfig.php:52,62
+msgid "Yes"
+msgstr "Sim"
+
+#: moip.forms.inc:12,58,51,46,56,45,55; lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:51,61; src/Controllers/FormControllers/MoipConfig.php:51,61
+msgid "No"
+msgstr "Não"
+
+#: tpl/js_form.tpl.php:42; tpl/moip_ct_js_form.tpl.php:42,65
+msgid "Number"
+msgstr "Número"
+
+#: moip.module:171
+msgid "Name"
+msgstr "Nome"
+
+#: moip.forms.inc:64,63; lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:69; src/Controllers/FormControllers/MoipConfig.php:69
+msgid "Advanced settings"
+msgstr "Configurações avançadas"
+
+#: moip.module:178
+msgid "Address"
+msgstr "Endereço"
+
+#: moip.forms.inc:49,42,36; lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:42; src/Controllers/FormControllers/MoipConfig.php:42
+msgid "Display title"
+msgstr "Exibir título"
+
+#: moip.module:170
+msgid "Option"
+msgstr "Opção"
+
+#: moip.forms.inc:243; lib/Drupal/moip/Commerce/FormControllers/MoipCheckoutTransparenteForm.php:90,91; src/Commerce/FormControllers/MoipCheckoutTransparenteForm.php:91
+msgid "Credit Card"
+msgstr "Cartão de crédito"
+
+#: tpl/js_form.tpl.php:52; tpl/moip_ct_js_form.tpl.php:52,75
+msgid "Expiration date"
+msgstr "Data de expiração"
+
+#: tpl/js_form.tpl.php:27; tpl/moip_ct_js_form.tpl.php:27,50
+msgid "Birthday"
+msgstr "Data de Nascimento"
+
+#: moip.module:190
+msgid "Transaction"
+msgstr ""
+
+#: tpl/js_form.tpl.php:22; tpl/moip_ct_js_form.tpl.php:22,45
+msgid "Cardholder name"
+msgstr ""
+
+#: moip.forms.inc:96,109,127; lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:143; src/Controllers/FormControllers/MoipConfig.php:143
+msgid "Reason"
+msgstr "Motivo"
+
+#: moip.forms.inc:42
+msgid "Website url"
+msgstr "Endereço do website"
+
+#: assets/js/moip.js:0; assets/js/moip.min.js:0
+msgid "Pay with credit card"
+msgstr "Pague com cartão de crédito"
+
+#: tpl/js_form.tpl.php:47; tpl/moip_ct_js_form.tpl.php:47,70
+msgid "Security code"
+msgstr "Código de segurança"
+
+#: moip.forms.inc:245; lib/Drupal/moip/Commerce/FormControllers/MoipCheckoutTransparenteForm.php:92,93; src/Commerce/FormControllers/MoipCheckoutTransparenteForm.php:93
+msgid "Bank Transfer"
+msgstr "Depósito em conta"
+
+#: moip.module:101,141,140; includes/MoipDrupal.inc:168,201; lib/Drupal/moip/MoipDrupal.php:182,196; src/MoipDrupal.php:198
+msgid "Order @order_number at @store"
+msgstr "Pedido @order_number em @store"
+
+#: moip.info:0
+msgid "Commerce (contrib)"
+msgstr "Commerce (contrib)"
+
+#: moip.module:62,65,63,66,61,64
+msgid "MoIP API Integration"
+msgstr "API de integração MoIP"
+
+#: moip.module:81,82
+msgid "MoIP"
+msgstr ""
+
+#: moip.forms.inc:20,24; lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:30; src/Controllers/FormControllers/MoipConfig.php:30
+msgid "MoIP token"
+msgstr "Padrão de substituição MoIP"
+
+#: moip.forms.inc:26,30; lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:36; src/Controllers/FormControllers/MoipConfig.php:36
+msgid "MoIP key"
+msgstr "Chave MoIP"
+
+#: moip.forms.inc:32,14; lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:20; src/Controllers/FormControllers/MoipConfig.php:20
+msgid "MoIP server"
+msgstr "Servidor MoIP"
+
+#: moip.module:152
+msgid "Creditcard"
+msgstr ""
+
+#: moip.module:160
+msgid "Internet banking"
+msgstr ""
+
+#: moip.forms.inc:111,124,142; lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:158; src/Controllers/FormControllers/MoipConfig.php:158
+msgid "Fixed amount"
+msgstr "Quantia fixa"
+
+#: tpl/js_form.tpl.php:39; tpl/moip_ct_js_form.tpl.php:39,62
+msgid "Card information"
+msgstr ""
+
+#: moip.forms.inc:10,54,53; lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:59; src/Controllers/FormControllers/MoipConfig.php:59
+msgid "Do you want to debug every action of this module?"
+msgstr "Você deseja depurar cada ação desse módulo?"
+
+#: moip.forms.inc:43
+msgid "Used to tell MoIP where to send the notifications(NASP)."
+msgstr "Usado para indicar ao MoIP para onde enviar as notificações (NASP)."
+
+#: moip.forms.inc:50,43,37; lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:43; src/Controllers/FormControllers/MoipConfig.php:43
+msgid "Text used on the checkout page description of the payment method."
+msgstr ""
+"Texto usado na descrição da página de finalização do pedido, do "
+"método de pagamento."
+
+#: moip.module:27,28,26
+msgid "Administer MOIP"
+msgstr "Administrar MOIP"
+
+#: moip.module:158,166,222,230,224,232,239,247; lib/Drupal/moip/Commerce/FormControllers/MoipCheckoutTransparenteForm.php:210,211; src/Commerce/FormControllers/MoipCheckoutTransparenteForm.php:214
+msgid "There was an error with MoIP. Please try again later."
+msgstr "Houve um erro com o MoIP. Por favor, tente novamente mais tarde."
+
+#: moip.module:38,39
+msgid "MOIP"
+msgstr "MOIP"
+
+#: moip.module:39,40,38
+msgid "Basic configuration to integrate Drupal with MOIP"
+msgstr "Configuração básica para integrar Drupal com MOIP"
+
+#: moip.module:47,48
+msgid "Página para recebimento da requisição NASP"
+msgstr ""
+
+#: moip.info:0
+msgid "MoIP Integration"
+msgstr "Integração MoIP"
+
+#: moip.info:0
+msgid "Provides a DrupalCommerce payment method for MoIP."
+msgstr "Fornece um método de pagamento DrupalCommerce para MoIP."
+
+#: includes/MoipNasp.inc:149,132,134,158,165; lib/Drupal/moip/Entity/MoipNasp.php:199; src/Entity/MoipNasp.php:204
+msgid ""
+"The payment was authorized but not completed yet, due to the normal "
+"flow of chosen payment method."
+msgstr ""
+"O pagamento foi autorizado mas não concluído, devido ao fluxo normal "
+"do método de pagamento escolhido."
+
+#: includes/MoipNasp.inc:150,129,131,155,162; lib/Drupal/moip/Entity/MoipNasp.php:196; src/Entity/MoipNasp.php:201
+msgid ""
+"The payment is not done yet, or user has abandoned the payment "
+"process."
+msgstr ""
+"O pagamento ainda não foi feito, ou o usuário abandonou o processo "
+"de pagamento."
+
+#: includes/MoipNasp.inc:151,130,132,156,163; lib/Drupal/moip/Entity/MoipNasp.php:197; src/Entity/MoipNasp.php:202
+msgid "The payment receipt \"Boleto\" was printed. Awaiting offline payment."
+msgstr "O boleto de pagamento foi impresso. Aguardando pagamento offline."
+
+#: includes/MoipNasp.inc:152,133,135,159,166; lib/Drupal/moip/Entity/MoipNasp.php:200; src/Entity/MoipNasp.php:205
+msgid ""
+"The payment was completed and the money was credited in the recipient "
+"account."
+msgstr ""
+"O pagamento foi concluído e o dinheiro foi creditado na conta do "
+"destinatário."
+
+#: includes/MoipNasp.inc:153,134,136,160,167; lib/Drupal/moip/Entity/MoipNasp.php:201; src/Entity/MoipNasp.php:206
+msgid ""
+"The payment was canceled by the payer, payment institution, MoIP or "
+"recipient account."
+msgstr ""
+
+#: includes/MoipNasp.inc:154,135,137,161,168; lib/Drupal/moip/Entity/MoipNasp.php:202; src/Entity/MoipNasp.php:207
+msgid "The payment was reversed by the payer."
+msgstr ""
+
+#: includes/MoipNasp.inc:155,131,133,157,164; lib/Drupal/moip/Entity/MoipNasp.php:198; src/Entity/MoipNasp.php:203
+msgid ""
+"The customer paid with a credit card and the payment is awaiting "
+"manual review from MoIP team."
+msgstr ""
+
+#: includes/MoipNasp.inc:78,103,124,77,104,106,131,136; lib/Drupal/moip/Entity/MoipNasp.php:170; src/Entity/MoipNasp.php:175
+msgid "moip"
+msgstr ""
+
+#: includes/MoipNasp.inc:78,77
+msgid "NASP was processed for Order @order_number, with ID @cod_moip."
+msgstr ""
+
+#: includes/MoipNasp.inc:103
+msgid "Invalid payment status"
+msgstr ""
+
+#: includes/MoipNasp.inc:124,104,106,131,136; lib/Drupal/moip/Entity/MoipNasp.php:170; src/Entity/MoipNasp.php:175
+msgid "NASP Transaction id's doesn't match"
+msgstr ""
+
+#: moip.forms.inc:56,49,43,42; lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:48; src/Controllers/FormControllers/MoipConfig.php:48
+msgid "Do you want to specify each line item on the order info at MoIP?"
+msgstr ""
+
+#: moip.forms.inc:66,59,74,87; lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:92; src/Controllers/FormControllers/MoipConfig.php:92
+msgid "Order Reason Token"
+msgstr ""
+
+#: moip.forms.inc:67,60,75,88; lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:93; src/Controllers/FormControllers/MoipConfig.php:93
+msgid ""
+"What title do you want to use for the orders sent to MoIP. The default "
+"ist \"Order @order_number at @store\". <strong>You can use "
+"tokens</strong> here(see the tokens browser above)."
+msgstr ""
+
+#: moip.forms.inc:72,65,80,93; lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:98; src/Controllers/FormControllers/MoipConfig.php:98
+msgid "Phone Token"
+msgstr ""
+
+#: moip.forms.inc:73,66,81,94; lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:99; src/Controllers/FormControllers/MoipConfig.php:99
+msgid ""
+"From where do you want to get the \"Phone\" field data to send to "
+"MoIP. <strong>You can use tokens</strong> here(see the tokens browser "
+"above)."
+msgstr ""
+
+#: moip.module:82,83,81,91,58
+msgid "Orders in this state are being processed by MoIP."
+msgstr ""
+
+#: moip.module:111,112,110,120,87
+msgid "Payment authorized"
+msgstr "Pagamento autorizado"
+
+#: includes/MoipNasp.inc:136,138,162,169; lib/Drupal/moip/Entity/MoipNasp.php:203; src/Entity/MoipNasp.php:208
+msgid "The payment was refunded to the payer."
+msgstr ""
+
+#: includes/MoipNasp.inc:161,163,187,194
+msgid ""
+"The payment status sent by MoIP was not recognized by \n"
+"        MoIP module. Please file an issue at "
+"http://drupal.org/project/moip."
+msgstr ""
+
+#: moip.forms.inc:10; lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:16; src/Controllers/FormControllers/MoipConfig.php:16
+msgid "Moip integration basic settings"
+msgstr ""
+
+#: moip.forms.inc:16; lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:22; src/Controllers/FormControllers/MoipConfig.php:22
+msgid "Sandbox - use for testing, requires a MoIP Sandbox account"
+msgstr ""
+
+#: moip.forms.inc:17; lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:23; src/Controllers/FormControllers/MoipConfig.php:23
+msgid "Production - use for processing real transactions"
+msgstr ""
+
+#: moip.forms.inc:44,43; lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:49; src/Controllers/FormControllers/MoipConfig.php:49
+msgid "If not, the info sent to MoIP will only contain the reason(title)"
+msgstr ""
+
+#: moip.forms.inc:68,81; lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:86; src/Controllers/FormControllers/MoipConfig.php:86
+msgid "Order display"
+msgstr ""
+
+#: moip.forms.inc:90,103,121; lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:137; src/Controllers/FormControllers/MoipConfig.php:137
+msgid "Comission settings"
+msgstr ""
+
+#: moip.forms.inc:97,110,128; lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:144; src/Controllers/FormControllers/MoipConfig.php:144
+msgid "Specify the reason for this comission."
+msgstr "Especificar a razão para esta comissão."
+
+#: moip.forms.inc:102,115,133; lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:149; src/Controllers/FormControllers/MoipConfig.php:149
+msgid "Moip User"
+msgstr ""
+
+#: moip.forms.inc:103,116,134; lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:150; src/Controllers/FormControllers/MoipConfig.php:150
+msgid "Moip account(email) to receive the comission."
+msgstr ""
+
+#: moip.forms.inc:108,121,139; lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:155; src/Controllers/FormControllers/MoipConfig.php:155
+msgid "Comission type"
+msgstr "Tipo de comissão"
+
+#: moip.forms.inc:109,122,140; lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:156; src/Controllers/FormControllers/MoipConfig.php:156
+msgid ""
+"You need to specify if this comission is a fixed amount or a "
+"percentual value from order total."
+msgstr ""
+
+#: moip.forms.inc:112,125,143; lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:159; src/Controllers/FormControllers/MoipConfig.php:159
+msgid "Percentual value"
+msgstr "Valor percentual"
+
+#: moip.forms.inc:119,132,150; lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:166; src/Controllers/FormControllers/MoipConfig.php:166
+msgid "Format: \"10.0\" (for both fixed amount and percentual value)"
+msgstr "Formato: \"10.0\" (para valor fixo e valor percentual)"
+
+#: moip.forms.inc:136,149,167; lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:179; src/Controllers/FormControllers/MoipConfig.php:179
+msgid "The comissions seem to be incorrectly configured. Please review."
+msgstr ""
+
+#: moip.pages.inc:18,16; lib/Drupal/moip/Entity/MoipNasp.php:32
+msgid ""
+"An attempt to access NASP notification url was made, with wrong "
+"parameters. See below:"
+msgstr ""
+
+#: moip.pages.inc:21,19; lib/Drupal/moip/Entity/MoipNasp.php:35; src/Entity/MoipNasp.php:40
+msgid "Wrong parameters was sent to the MoIP integration notification page"
+msgstr ""
+
+#: moip.module:39,37
+msgid "MoIP Settings"
+msgstr ""
+
+#: includes/MoipNasp.inc:77,100,102
+msgid ""
+"NASP was processed for Order @order_number, with ID @cod_moip, "
+"changing it status to @status"
+msgstr ""
+
+#: moip.forms.inc:74; lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:78; src/Controllers/FormControllers/MoipConfig.php:78
+msgid "MoIP Class"
+msgstr ""
+
+#: moip.forms.inc:76; lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:80; src/Controllers/FormControllers/MoipConfig.php:80
+msgid ""
+"MoIP PHP Class to use in this site. It is useful if you have some "
+"special use case to deal with."
+msgstr ""
+
+#: moip.forms.inc:99; lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:104; src/Controllers/FormControllers/MoipConfig.php:104
+msgid "Name Token"
+msgstr ""
+
+#: moip.forms.inc:100; lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:105; src/Controllers/FormControllers/MoipConfig.php:105
+msgid ""
+"From where do you want to get the \"Name\" field data to send to MoIP. "
+"<strong>You can use tokens</strong> here(see the tokens browser "
+"above)."
+msgstr ""
+
+#: moip.forms.inc:105; lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:110; src/Controllers/FormControllers/MoipConfig.php:110
+msgid "Birthday Token"
+msgstr ""
+
+#: moip.forms.inc:106; lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:111; src/Controllers/FormControllers/MoipConfig.php:111
+msgid ""
+"From where do you want to get the \"Birthday\" field data to send to "
+"MoIP. <strong>You can use tokens</strong> here(see the tokens browser "
+"above)."
+msgstr ""
+"De onde você deseja obter os dados de campo \"Aniversário\" para "
+"enviar para o MoIP.<strong>Você pode usar os tokens</strong> aqui "
+"(veja o navegador de tokens acima)."
+
+#: moip.forms.inc:111; lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:116; src/Controllers/FormControllers/MoipConfig.php:116
+msgid "CPF Token"
+msgstr "CPF Token"
+
+#: moip.forms.inc:112; lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:117; src/Controllers/FormControllers/MoipConfig.php:117
+msgid ""
+"From where do you want to get the \"CPF\" field data to send to MoIP. "
+"<strong>You can use tokens</strong> here(see the tokens browser "
+"above)."
+msgstr ""
+"De onde você deseja obter os dados de campo \"CPF\" para enviar para "
+"o MoIP.<strong>Você pode usar de tokens</strong> aqui (veja o "
+"navegador de tokens acima)."
+
+#: moip.forms.inc:188
+msgid "Order @order_id didn't provide a phone number to integrate with Moip."
+msgstr ""
+"O pedido @order_id não fornece um número de telefone para integrar "
+"com o Moip."
+
+#: moip.forms.inc:198
+msgid "Order @order_id didn't received a transaction token from Moip."
+msgstr "O pedido @order_id não recebeu um token de transação do Moip."
+
+#: moip.forms.inc:208
+msgid "Order @order_id have an empty commerce_customer_billing field."
+msgstr ""
+
+#: moip.forms.inc:241; lib/Drupal/moip/Commerce/FormControllers/MoipCheckoutTransparenteForm.php:88,89; src/Commerce/FormControllers/MoipCheckoutTransparenteForm.php:89
+msgid "MoIP - Choose your payment way"
+msgstr "MoIP - Escolha sua forma de pagamento"
+
+#: moip.forms.inc:244; lib/Drupal/moip/Commerce/FormControllers/MoipCheckoutTransparenteForm.php:91,92; src/Commerce/FormControllers/MoipCheckoutTransparenteForm.php:92
+msgid "Bank Billet"
+msgstr "Boleto Bancário"
+
+#: moip.module:71,74,41
+msgid "MoIP - Checkout Transparente"
+msgstr ""
+
+#: assets/js/moip.js:0; assets/js/moip.min.js:0
+msgid "Pay with bank billet"
+msgstr "Pague com boleto bancário"
+
+#: assets/js/moip.js:0; assets/js/moip.min.js:0
+msgid "Pay with bank transfer"
+msgstr "Pague com transferência bancária"
+
+#: assets/js/moip.js:0; assets/js/moip.min.js:0
+msgid "The informed card number is invalid. Please verify."
+msgstr "O número de cartão informado é inválido. Favor verificar."
+
+#: assets/js/moip.js:0; assets/js/moip.min.js:0
+msgid "The informed security code is invalid. Please verify."
+msgstr "O código de segurança informado é inválido. Favor verificar."
+
+#: assets/js/moip.js:0; assets/js/moip.min.js:0
+msgid "You need to specify the bank."
+msgstr "Você precisa especificar o banco."
+
+#: assets/js/moip.js:0; assets/js/moip.min.js:0
+msgid "The Moip \"Answer\" came empty"
+msgstr ""
+
+#: tpl/js_form.tpl.php:10; tpl/moip_ct_js_form.tpl.php:10
+msgid ""
+"Your safety is assured by Moip, the payment service from IG. <a "
+"href=\"https://site.moip.com.br/seguranca-para-compradores/\" "
+"target=\"_blank\">Want to read more about</a>?"
+msgstr ""
+
+#: tpl/js_form.tpl.php:14; tpl/moip_ct_js_form.tpl.php:14
+msgid "Processing your payment..."
+msgstr "Processando seu pagamento..."
+
+#: tpl/js_form.tpl.php:19; tpl/moip_ct_js_form.tpl.php:19,42
+msgid "Cardholder information"
+msgstr ""
+
+#: moip.module:26
+msgid "Administer MoIP"
+msgstr ""
+
+#: moip.module:144
+msgid "Bank billet link"
+msgstr ""
+
+#: moip.module:146
+msgid "Internet banking link"
+msgstr ""
+
+#: moip.module:153
+msgid "click here to open"
+msgstr ""
+
+#: moip.module:157,194
+msgid "MoIP information"
+msgstr ""
+
+#: moip.module:174,211
+msgid ""
+"The payment method is not working properly. Please contact the site "
+"administrators."
+msgstr ""
+
+#: lib/Drupal/moip/MoipDrupal.php:66,80; src/MoipDrupal.php:80
+msgid ""
+"The informed phone number is invalid. Please use the following format: "
+"22333344445 (10 or 11 numbers)"
+msgstr ""
+
+#: lib/Drupal/moip/Commerce/FormControllers/MoipCheckoutTransparenteForm.php:20; src/Commerce/FormControllers/MoipCheckoutTransparenteForm.php:20
+msgid ""
+"Order @order_id did not provide \"phone number\" while processing "
+"moip_ct_form"
+msgstr ""
+
+#: lib/Drupal/moip/Commerce/FormControllers/MoipCheckoutTransparenteForm.php:35,36; src/Commerce/FormControllers/MoipCheckoutTransparenteForm.php:36
+msgid ""
+"Order @order_id did not provide \"moip token\" while processing "
+"moip_ct_form"
+msgstr ""
+
+#: lib/Drupal/moip/Commerce/FormControllers/MoipCheckoutTransparenteForm.php:44,45; src/Commerce/FormControllers/MoipCheckoutTransparenteForm.php:45
+msgid ""
+"Order @order_id did not provide \"commerce_customer_billing\" while "
+"processing moip_ct_form: <pre>@pre</pre>"
+msgstr ""
+
+#: lib/Drupal/moip/Commerce/FormControllers/MoipCheckoutTransparenteForm.php:184,185; src/Commerce/FormControllers/MoipCheckoutTransparenteForm.php:188
+msgid ""
+"Order was processed by moip_ct with bankbillet and is waiting for "
+"response from MoIP"
+msgstr ""
+
+#: lib/Drupal/moip/Commerce/FormControllers/MoipCheckoutTransparenteForm.php:199,200; src/Commerce/FormControllers/MoipCheckoutTransparenteForm.php:203
+msgid ""
+"Order was processed by moip_ct with banktransfer and is waiting for "
+"response from Moip"
+msgstr ""
+
+#: lib/Drupal/moip/Commerce/FormControllers/MoipCommerceCheckoutCompleteForm.php:14; src/Commerce/FormControllers/MoipCommerceCheckoutCompleteForm.php:14
+msgid ""
+"If the bank billet didn't opened, <a href='!link' "
+"target='_blank'>click here</a> to open it and complete your payment."
+msgstr ""
+
+#: lib/Drupal/moip/Commerce/FormControllers/MoipCommerceCheckoutCompleteForm.php:16; src/Commerce/FormControllers/MoipCommerceCheckoutCompleteForm.php:16
+msgid ""
+"If the internet banking didn't opened, <a href='!link' "
+"target='_blank'>click here</a> to open it and complete your payment."
+msgstr ""
+
+#: lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:128,129; src/Controllers/FormControllers/MoipConfig.php:128,129
+msgid "Customize with @tokens"
+msgstr ""
+
+#: lib/Drupal/moip/Controllers/FormControllers/MoipConfig.php:132; src/Controllers/FormControllers/MoipConfig.php:132
+msgid ""
+"You will be able to customize some texts if you enable the <a "
+"href=\"http://drupal.org/project/token\">Token module</a>."
+msgstr ""
+
+#: lib/Drupal/moip/Controllers/PageControllers/MoipConfig.php:20; lib/Drupal/moip/Controllers/PageControllers/MoipNotification.php:24; src/Controllers/PageControllers/MoipConfig.php:20; src/Controllers/PageControllers/MoipNotification.php:24
+msgid "Basic configuration to integrate Drupal with MoIP"
+msgstr ""
+
+#: lib/Drupal/moip/Entity/MoipNasp.php:228; src/Entity/MoipNasp.php:233
+msgid ""
+"The payment status sent by MoIP was not recognized by MoIP module. "
+"Please file an issue at http://drupal.org/project/moip."
+msgstr ""
+
+#: lib/Drupal/moip/Entity/MoipNasp.php:25,71,137; src/Entity/MoipNasp.php:25,76,142
+msgid "moip_debug"
+msgstr ""
+
+#: lib/Drupal/moip/Entity/MoipNasp.php:25; src/Entity/MoipNasp.php:25
+msgid "[processMoipData] create <pre>@pre</pre>"
+msgstr ""
+
+#: lib/Drupal/moip/Entity/MoipNasp.php:71; src/Entity/MoipNasp.php:76
+msgid "[processMoipData] updated <pre>@pre</pre>"
+msgstr ""
+
+#: lib/Drupal/moip/Entity/MoipNasp.php:137; src/Entity/MoipNasp.php:142
+msgid ""
+"[savePaymentTransaction] processed for order @order_number, with ID "
+"@cod_moip, changing it status to @status <pre>@pre</pre>"
+msgstr ""
+
+#: moip.module:156
+msgid "Bank billet"
+msgstr ""
+
+#: moip.module:170
+msgid "Payment method used"
+msgstr ""
+
+#: assets/js/moip.js:0; assets/js/moip.min.js:0
+msgid "The \"name\" field is required."
+msgstr "O campo \"nome\" é obrigatório."
+
+#: assets/js/moip.js:0; assets/js/moip.min.js:0
+msgid "The \"birthday\" field is required."
+msgstr "O campo \"data de nascimento\" é obrigatório."
+
+#: assets/js/moip.js:0; assets/js/moip.min.js:0
+msgid "The \"cpf\" field is required."
+msgstr "O campo \"cpf\" é obrigatório"
+
+#: assets/js/moip.js:0; assets/js/moip.min.js:0
+msgid "The \"number\" field is required."
+msgstr "O campo \"número\" é obrigatório."
+
+#: assets/js/moip.js:0; assets/js/moip.min.js:0
+msgid "The \"security code\" field is required."
+msgstr "O campo \"código de segurança\" é obrigatório."
+
+#: assets/js/moip.js:0; assets/js/moip.min.js:0
+msgid "The \"expiration date\" field is required."
+msgstr "O campo \"data de expiração\" é obrigatório."
+
+#: assets/js/moip.js:0; assets/js/moip.min.js:0
+msgid "The \"expiration date\" should be informed in the format \"mm/yyyy\"."
+msgstr "A \"data de expiração\" deve ser informada no formato \"MM/AAAA\"."
+
+#: assets/js/moip.js:0; assets/js/moip.min.js:0
+msgid "The \"expiration date\" informed is invalid."
+msgstr "A \"data de expiração\" informada é inváida"
+
+#: src/MoipDrupal.php:91
+msgid "<pre>@pre</pre>"
+msgstr "<pre>@pre</pre>"
+
+#: src/Commerce/FormControllers/MoipCheckoutTransparenteForm.php:132
+msgid "@payment_way_option: <pre>@pre</pre>"
+msgstr "@payment_way_option: <pre>@pre</pre>"
+
+#: src/Entity/MoipNasp.php:34
+msgid ""
+"An attempt to access NASP notification url was made, with wrong "
+"parameters. See below: <pre>@pre</pre>"
+msgstr ""
+

@@ -1,0 +1,230 @@
+# Portuguese, Brazil translation of Brazilian Address (all releases)
+# Copyright (c) 2015 by the Portuguese, Brazil translation team
+# Generated from files:
+#  br_address/plugins/format/br-address.inc: n/a
+#  br_address/br_address.info: n/a
+#  br_address/br_address.module: n/a
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Brazilian Address (all releases)\n"
+"POT-Creation-Date: 2015-04-28 02:38+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Portuguese, Brazil\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: plugins/format/br-address.inc:148
+msgid "Country"
+msgstr "País"
+
+#: plugins/format/br-address.inc:225
+msgid "Error"
+msgstr "Erro"
+
+#: plugins/format/br-address.inc:91
+msgid "--"
+msgstr "--"
+
+#: br_address.info:0
+msgid "Fields"
+msgstr "Campos"
+
+#: plugins/format/br-address.inc:85
+msgid "State"
+msgstr "Estado"
+
+#: plugins/format/br-address.inc:149
+msgid "Brazil"
+msgstr "Brasil"
+
+#: plugins/format/br-address.inc:74
+msgid "City"
+msgstr "Cidade"
+
+#: plugins/format/br-address.inc:124
+msgid "Postal Code"
+msgstr "CEP"
+
+#: plugins/format/br-address.inc:98
+msgid "Distrito Federal"
+msgstr "Distrito Federal"
+
+#: plugins/format/br-address.inc:92
+msgid "Acre"
+msgstr "Acre"
+
+#: plugins/format/br-address.inc:93
+msgid "Alagoas"
+msgstr "Alagoas"
+
+#: plugins/format/br-address.inc:94
+msgid "Amazonas"
+msgstr "Amazonas"
+
+#: plugins/format/br-address.inc:95
+msgid "Amapa"
+msgstr "Amapá"
+
+#: plugins/format/br-address.inc:96
+msgid "Bahia"
+msgstr "Bahia"
+
+#: plugins/format/br-address.inc:97
+msgid "Ceara"
+msgstr "Ceará"
+
+#: plugins/format/br-address.inc:99
+msgid "Espirito Santo"
+msgstr "Espírito Santo"
+
+#: plugins/format/br-address.inc:100
+msgid "Goias"
+msgstr "Goiás"
+
+#: plugins/format/br-address.inc:101
+msgid "Maranhao"
+msgstr "Maranhão"
+
+#: plugins/format/br-address.inc:102
+msgid "Minas Gerais"
+msgstr "Minas Gerais"
+
+#: plugins/format/br-address.inc:103
+msgid "Mato Grosso do Sul"
+msgstr "Mato Grosso do Sul"
+
+#: plugins/format/br-address.inc:104
+msgid "Mato Grosso"
+msgstr "Mato Grosso"
+
+#: plugins/format/br-address.inc:105
+msgid "Para"
+msgstr "Pará"
+
+#: plugins/format/br-address.inc:106
+msgid "Paraiba"
+msgstr "Paraíba"
+
+#: plugins/format/br-address.inc:107
+msgid "Pernambuco"
+msgstr "Pernambuco"
+
+#: plugins/format/br-address.inc:108
+msgid "Piaui"
+msgstr "Piauí"
+
+#: plugins/format/br-address.inc:109
+msgid "Parana"
+msgstr "Paraná"
+
+#: plugins/format/br-address.inc:110
+msgid "Rio de Janeiro"
+msgstr "Rio de Janeiro"
+
+#: plugins/format/br-address.inc:111
+msgid "Rio Grande do Norte"
+msgstr "Rio Grande do Norte"
+
+#: plugins/format/br-address.inc:112
+msgid "Rondonia"
+msgstr "Rondônia"
+
+#: plugins/format/br-address.inc:113
+msgid "Roraima"
+msgstr "Roraima"
+
+#: plugins/format/br-address.inc:114
+msgid "Rio Grande do Sul"
+msgstr "Rio Grande do Sul"
+
+#: plugins/format/br-address.inc:115
+msgid "Santa Catarina"
+msgstr "Santa Catarina"
+
+#: plugins/format/br-address.inc:116
+msgid "Sergipe"
+msgstr "Sergipe"
+
+#: plugins/format/br-address.inc:117
+msgid "Sao Paulo"
+msgstr "São Paulo"
+
+#: plugins/format/br-address.inc:118
+msgid "Tocantins"
+msgstr "Tocantins"
+
+#: plugins/format/br-address.inc:36
+msgid "Thoroughfare"
+msgstr "Logradouro"
+
+#: plugins/format/br-address.inc:46
+msgid "Complement"
+msgstr "Complemento"
+
+#: plugins/format/br-address.inc:55
+msgid "Neighborhood"
+msgstr "Bairro"
+
+#: br_address.module:59
+msgid "Brazilian address options"
+msgstr "Opções do Brazilian address"
+
+#: br_address.module:68
+msgid "Autocomplete city"
+msgstr "Autocompletar cidade"
+
+#: br_address.module:69
+msgid "Enable the autocomplete for the city field."
+msgstr "Habilitar o autocomplete para o campo cidade."
+
+#: br_address.module:73
+msgid "Postal code querying"
+msgstr "Pesquisa de CEP"
+
+#: br_address.module:74
+msgid ""
+"Enable address search by postal code on Correios site "
+"(http://m.correios.com.br/)."
+msgstr ""
+"Habilitar pesquisa de endereço pelo CEP no site dos Correios "
+"(http://m.correios.com.br/)."
+
+#: br_address.module:75
+msgid "This will bring the postal code field to the top of form"
+msgstr "Isto coloca o campo de CEP no topo do formulário"
+
+#: br_address.info:0
+msgid "Brazilian Address"
+msgstr "Brazilian Address"
+
+#: br_address.info:0
+msgid "Implements an addressfield format handler for brazilian addresses."
+msgstr ""
+"Implementa um processador de formato de campo de endereço para "
+"endereços brasileiros."
+
+#: plugins/format/br-address.inc:9
+msgid "Brazilian address"
+msgstr "Brazilian address"
+
+#: plugins/format/br-address.inc:39
+msgid ""
+"Type and name of thoroughfare and address number. Ex: Av. Beira Mar, "
+"547."
+msgstr "Digite o logradouro e número. Ex: Av. Beira Mar, 547."
+
+#: plugins/format/br-address.inc:220
+msgid ""
+"Address not found.\n"
+"\n"
+"Please, verify if the postal code is correct or fill the address "
+"manually."
+msgstr ""
+"Endereço não encontrado.\n"
+"\n"
+"Por favor, verifique se o CEP está correto ou preencha o endereço "
+"manualmente."
+
